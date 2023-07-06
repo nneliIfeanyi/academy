@@ -37,6 +37,7 @@
               <th><b>Name</b></th>
                <th><b>Sex</b></th>
               <th><b>phone</b></th>
+              <th><b>Pic</b></th>
                <th><b>payment</b></th>
               <th><b>Action</b></th>
             </tr>
@@ -49,6 +50,7 @@
               <td><?= $student->full_name; ?></td>
               <td><?= $student->sex; ?></td>
               <td><?= $student->phone; ?></td>
+              <td><a href="<?= URLROOT ."/". $student->passport ?>"><img src="<?= URLROOT ."/". $student->passport ?>" height="80px" width="95px"></a></td>
               <td><?= $student->payment; ?></td>
               <td>
                <form action="<?= URLROOT; ?>/pages/verify2/<?=$student->id?>" method="POST">
