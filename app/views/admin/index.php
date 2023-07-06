@@ -29,7 +29,7 @@
     <div class="col-lg-9 pb-3 mb-3 text-center">
      <h3 class="fw-bold">All Registered Students</h3>
      <?php flash('verify_success');?>
-      <div class="">
+      <div style="overflow-x: scroll;width: 100%;">
         <table class="w3-table-all">
           <thead>
             <tr class="w3-text-black">
