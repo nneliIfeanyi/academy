@@ -1,4 +1,4 @@
-<?php require APPROOT . '/views/inc2/heade2r.php'; ?>
+<?php require APPROOT . '/views/inc2/header2.php'; ?>
 <div class="container">
   <a href="<?php echo URLROOT; ?>/posts" class="btn btn-light my-2"><i class="fa fa-backward" aria-hidden="true"></i> Back</a>
   <br>
