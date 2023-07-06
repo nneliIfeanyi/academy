@@ -9,7 +9,7 @@
               <label>Title</label>
               <select name="title" class="form-control form-control-lg <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>">
                 <option value="">Choose title</option>
-                <option value="Anouncemwnt">Anouncement</option>
+                <option value="Anouncement">Anouncement</option>
                 <option value="Assignment">Assignment</option>
               </select>
             
