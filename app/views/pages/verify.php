@@ -3,7 +3,7 @@
   <div class="jumbotron jumbotron-fluid mt-3">
     <div class="container">
       <h1 class="display-3">Web Academy</h1>
-      <p class="lead text-success">August 2023 Boot Camp.</p>
+      <p class="lead text-success">August 2023 Boot Camp, Coming Soon.</p>
       <div class="row">
         <div class="col-md-6">
           <p class="">We focus on teaching our students the fundamentals of the latest and greatest technologies to prepare them for their first dev role</p>

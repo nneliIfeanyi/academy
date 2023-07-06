@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc2/header2.php'; ?>
 <section style="background-image: url('');">
+  <div class="mt-2"><?php flash('login_success');?></div>
   <div class="jumbotron jumbotron-fluid mt-3 shadow">
     <div class="container">
       <h1 class="display-3"><?php echo $data['title']; ?></h1>

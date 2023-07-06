@@ -67,7 +67,7 @@
             $fileType2 = pathinfo($imageUploadPath2, PATHINFO_EXTENSION);
 
             // Allow certain file formats 
-            $allowTypes = array('jpg','png','jpeg'); 
+            $allowTypes = array('jpg','png','jpeg','PNG'); 
             if(!in_array($fileType2, $allowTypes)) { 
               
                flash('image_invalid', 'INVALID IMAGE TYPE', 'alert alert-danger');
@@ -144,7 +144,7 @@
           if($loggedInUser){
             // User Authenticated!
             $this->createUserSession($loggedInUser);
-            flash('register_success', 'Yes Am In');
+            flash('login_success', 'Login Successful');
             redirect('posts');
            
           } else {

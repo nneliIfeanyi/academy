@@ -32,11 +32,27 @@
 
     public function verify($data){
       // Prepare Query
-      $this->db->query('UPDATE students SET reciept = :reciept WHERE id = :id');
+      $this->db->query('UPDATE students SET payment = :reciept WHERE id = :id');
 
       // Bind Values
       $this->db->bind(':id', $data['id']);
-      $this->db->bind(':reciept', $data['img']);
+      $this->db->bind(':reciept', $data['status']);
+      
+      //Execute
+      if($this->db->execute()){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function reverse($data){
+      // Prepare Query
+      $this->db->query('UPDATE students SET payment = :reciept WHERE id = :id');
+
+      // Bind Values
+      $this->db->bind(':id', $data['id']);
+      $this->db->bind(':reciept', $data['status']);
       
       //Execute
       if($this->db->execute()){
@@ -91,6 +107,16 @@
           return false;
         }
       
+    }
+
+
+    public function allStudent(){
+
+      $this->db->query("SELECT * FROM students ORDER BY id DESC");
+
+      $results = $this->db->resultset();
+  
+      return $results;
     }
 
      // Login / Authenticate User

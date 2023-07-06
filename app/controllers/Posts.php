@@ -16,7 +16,7 @@
 
       $data = [
         'title' => 'Web Academy',
-        'description' => 'August 2023 Boot Camp.',
+        'description' => 'August 2023 Boot Camp, Coming Soon.',
         'posts' => $posts
       ];
       
