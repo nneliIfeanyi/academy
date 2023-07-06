@@ -60,7 +60,7 @@
           </div>
           <?php if(!isset($_SESSION['user_id'])) : ?>
           <div class="overlay-content">
-            <a class="" href="<?=URLROOT?>/pages">
+            <a class="" href="<?=URLROOT?>/pages/index">
               Home
             </a>
             <a class="" href="<?=URLROOT?>/users/register">
@@ -71,7 +71,7 @@
             </a>
           </div>
         </div>
-        <a class="navbar-brand" href="<?=URLROOT?>/pages">
+        <a class="navbar-brand" href="<?=URLROOT?>/pages/index">
           <span>
            <?= SITENAME ?>
           </span>
@@ -93,14 +93,14 @@
             <a class="" href="<?=URLROOT?>/users/logout"><i class="fa fa-sign-out"></i> Logout</a>
          </div>
         </div>
-        <a class="navbar-brand" href="<?=URLROOT?>/pages">
+        <a class="navbar-brand" href="<?=URLROOT?>/pages/index">
           <span>
            <?= SITENAME ?>
           </span>
         </a>
         <div class="user_option">
           <a href="<?=URLROOT?>/posts">
-            <i class="fa fa-user " aria-hidden="true"></i>
+            <i class="fa fa-user fa-lg" aria-hidden="true"></i>
           </a>
         </div>
 

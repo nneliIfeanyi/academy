@@ -1,6 +1,30 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-
-
+<style>
+.cssmarquee {
+height: 50px;
+overflow: hidden;
+position: relative;
+}
+.cssmarquee h1 {
+font-size: 1em;
+position: absolute;
+width: 100%;
+height: 100%;
+margin: 0;
+line-height: 50px;
+text-align: center;
+transform:translateX(100%);
+animation: cssmarquee 12s linear infinite;
+}
+@keyframes cssmarquee {
+0% {
+transform: translateX(100%);
+}
+100% {
+transform: translateX(-100%);
+}
+}
+</style>
 
     <!-- slider section -->
     <section class="slider_section position-relative">
@@ -137,7 +161,7 @@
               </h5>
             </div>
             <h4>
-            Javascript
+            JS
             </h4>
           </div>
         </div>
@@ -189,6 +213,9 @@
             <div class="stripe_design sd6"></div>
             <img src="<?=URLROOT?>/img/capture.png" alt="coding-sample image" height="270px" />
           </div>
+          <div class="cssmarquee">
+            <h1><pre><b>Coding   is   Fun</b></pre></h1>
+          </div>
         </div>
       </div>
     </div>
@@ -201,6 +228,7 @@
           <h2>
             Get Familiar With
           </h2>
+
         </div>
         <div class="row">
 
@@ -232,8 +260,8 @@
             </h4>
            </div>
         </div>
-
-          <div class="lead mt-4">Master the basis, Proceed to advance</div>
+           <div class="lead mt-4">And build websites of your own</div>
+          <div class="lead">Master the basis, Proceed to advance</div>
            <div class="lead mb-4">Grow from no stack to full stack web developer</div>
 
             <a href="<?=URLROOT?>/users/register" class="btn text-white mb-4" style="background-color: #0a1b89;">
@@ -265,10 +293,16 @@
                   Call 08122321931
                 </span>
               </a>
+              <a href="tel:08153054060">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call 08153054060
+                </span>
+              </a>
               <a href="mailto:webacademy4@gmail.com">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  webacademy4@gmail.com
+                  stanvicbest@gmail.com
                 </span>
               </a>
             </div>

@@ -26,9 +26,6 @@
 
      // Load All Posts
     public function blog(){
-
-
-
       $posts = $this->postModel->getPosts();
       $data = [
        'posts' => $posts

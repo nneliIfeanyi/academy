@@ -16,7 +16,7 @@
 			</div>
 		
 			<form action="<?= URLROOT ?>/users/register" method="POST" enctype="multipart/form-data">
-				<div class="inputs w3-padding w3-border w3-margin">
+				<div class="inputs w3-border">
 
 					<div class=" w3-margin">
 						<input type="text" name="f_name" class="w3-input" placeholder="First name" value="<?= $_POST['f_name'] ?>">
