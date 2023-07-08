@@ -233,28 +233,28 @@ transform: translateX(-100%);
         <div class="row">
 
            <div class="col-3 col-md-3 px-6">
-            <img src="img/html2.png" height="80" width="80" class="">
+            <img src="<?= URLROOT;?>/img/html2.png" height="80" width="80" class="">
             <h4 class="py-2 h6 fw-bold">
               &nbsp;&nbsp;&nbsp;&nbsp;HTML5
             </h4>
            </div>
 
            <div class="col-3 col-md-3">
-            <img src="img/css.jpeg" height="80" width="80" class="">
+            <img src="<?= URLROOT;?>/img/css.jpeg" height="80" width="80" class="">
             <h4 class="py-2 h6 fw-bold">
               &nbsp;&nbsp;&nbsp;&nbsp;CSS3
             </h4>
            </div>
 
            <div class="col-3 col-md-3">
-            <img src="img/js.png" height="80" width="80" class="">
+            <img src="<?= URLROOT;?>/img/js.png" height="80" width="80" class="">
             <h4 class="py-2 h6 fw-bold">
               JAVASCRIPT
             </h4>
            </div>
 
            <div class="col-3 col-md-3">
-            <img src="img/php.jpg" height="80" width="80" class="">
+            <img src="<?= URLROOT;?>/img/php.jpg" height="80" width="80" class="">
             <h4 class="py-2 h6 fw-bold">
               &nbsp;&nbsp;&nbsp;&nbsp;PHP
             </h4>
