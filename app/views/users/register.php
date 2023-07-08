@@ -10,7 +10,7 @@
 				 	<p style="font-weight: bold;"> Total payment is <span style="color: #0a1b89;">&#8358;5500</span></p>
 				 	<p class="w3-opacity">Please kindly pay to the following account before filling this form<br>AccountDetails...8122321931...Nneli Ifeanyi Victor...PalmPay</p>
           <p>
-            Resgistration closes on 29th july, 2023.
+            Resgistration closes on 29th july, 2023.<br>You can aswell <b>PAY AT THE VENUE</b>
           </p>
           <p><?=flash('image_invalid')?></p>
 			</div>
