@@ -8,9 +8,9 @@
 			<div class="w3-container">
 				 	<p>Registration fee is &#8358;500<br>While tuition fee is &#8358;5000</p>
 				 	<p style="font-weight: bold;"> Total payment is <span style="color: #0a1b89;">&#8358;5500</span></p>
-				 	<p class="w3-opacity">Please kindly pay to the following account before filling this form<br>AccountDetails...8122321931...Nneli Ifeanyi Victor...PalmPay</p>
+				 	<p class="">Please kindly pay to the following account before filling this form or go ahead and fill the form, You can aswell <span style="color: #0a1b89;font-weight: bolder;">pay at the venue</span><br>AccountDetails...8122321931...Nneli Ifeanyi Victor...PalmPay</p>
           <p>
-            Resgistration closes on 29th july, 2023.<br>You can aswell <b>PAY AT THE VENUE</b>
+            Resgistration closes on 29th July, 2023. <span style="color: #0a1b89;font-weight: bolder;">Resumption is Monday 31st July, 2023</span>
           </p>
           <p><?=flash('image_invalid')?></p>
 			</div>
