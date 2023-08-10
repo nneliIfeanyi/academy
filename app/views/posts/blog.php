@@ -17,7 +17,7 @@
   </div>
   <?php foreach($data['posts'] as $post) : ?>
     <div class="card card-body mb-3">
-      <?php if(!empty($post->post_img)):?><div class="card-img"><img src="<?php echo URLROOT . "/" . $post->post_img; ?>" width="100%" height="180px"></div><?php endif;?>
+      <?php if(!empty($post->post_img)):?><a href="<?php echo URLROOT . "/" . $post->post_img; ?>"><div class="card-img"><img src="<?php echo URLROOT . "/" . $post->post_img; ?>" width="100%" height="200px"></div></div><?php endif;?>
       <h4 class="card-title text-success fw-bold"><?php echo $post->title; ?></h4>
       <!--<div class="bg-light p-2 mb-3">
         Posted by <?php echo $post->user_name; ?> on <?php echo $post->created_at; ?>
@@ -32,8 +32,7 @@
           </a>
       </div>
       <?php if($post->user_id == $_SESSION['user_id']) : ?>
-        <hr>
-          <a class="btn btn-dark mb-3" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->id; ?>">Edit</a>
+          <a class="btn btn-dark mb-3" href="<?php echo URLROOT; ?>/posts/edit/<?php echo $post->postId; ?>">Edit</a>
 
           <form class="pull-right" action="<?php echo URLROOT; ?>/posts/delete/<?php echo $post->id; ?>" method="post">
             <input type="submit" class="btn btn-danger mb-3" value="Delete">
