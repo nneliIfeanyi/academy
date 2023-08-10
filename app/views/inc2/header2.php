@@ -17,4 +17,3 @@
 </head>
 <body>
   <?php require APPROOT . '/views/inc2/navbar.php'; ?>
-  <div class="container">

@@ -145,7 +145,7 @@
             // User Authenticated!
             $this->createUserSession($loggedInUser);
             flash('login_success', 'Login Successful');
-            redirect('posts');
+            redirect('posts/blog');
            
           } else {
             $data['password_err'] = 'Password incorrect.';

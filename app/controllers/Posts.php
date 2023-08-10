@@ -16,7 +16,7 @@
 
       $data = [
         'title' => 'Web Academy',
-        'description' => 'August 2023 Boot Camp, Coming Soon.',
+        'description' => 'August 2023 Boot Camp',
         'posts' => $posts
       ];
       
@@ -59,40 +59,79 @@
         // Sanitize POST
         $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         
+        if($result_file = $_FILES['result']['name']){
+        $file_nameArr = explode(".", $result_file);
+        $extension = end($file_nameArr);
+        $ext = strtolower($extension);
+        $unique_name = rand(100, 999).rand(100, 999).'.'.$ext;
+
+        $result_folder = "uploaded/".$unique_name;
+        $db_result_file = "uploaded/".$unique_name;
+        
         $data = [
           'title' => trim($_POST['title']),
           'body' => trim($_POST['body']),
-          'user_id' => $_SESSION['user_id'],   
-          'title_err' => '',
-          'body_err' => ''
+          'user_id' => $_SESSION['user_id'],
+          'post_pic' => $db_result_file,
+          'body_err' => '',
+          move_uploaded_file($_FILES['result']['tmp_name'],$result_folder)
         ];
 
-         // Validate email
-         if(empty($data['title'])){
-          $data['title_err'] = 'Please enter title';
-          // Validate name
-          if(empty($data['body'])){
+        if(empty($data['body'])){
             $data['body_err'] = 'Please enter the post body';
           }
-        }
+       // Make sure there are no errors
+        if( empty($data['body_err']) ){
+          
+          if($this->postModel->addPost2($data)){
 
-        // Make sure there are no errors
-        if(empty($data['title_err']) && empty($data['body_err'])){
-          // Validation passed
-          //Execute
-          if($this->postModel->addPost($data)){
             // Redirect to login
             flash('post_added', 'Post Added');
-            redirect('posts');
+            redirect('posts/blog');
           } else {
             die('Something went wrong');
           }
+
         } else {
           // Load view with errors
           $this->view('posts/add', $data);
         }
 
-      } else {
+        }
+
+        else{
+
+          $data = [
+          'title' => trim($_POST['title']),
+          'body' => trim($_POST['body']),
+          'user_id' => $_SESSION['user_id'],
+          'body_err' => ''
+        ];
+
+        if(empty($data['body'])){
+            $data['body_err'] = 'Please enter the post body';
+          }
+       // Make sure there are no errors
+        if( empty($data['body_err']) ){
+          
+          if($this->postModel->addPost($data)){
+
+            // Redirect to login
+            flash('post_added', 'Post Added');
+            redirect('posts/blog');
+          } else {
+            die('Something went wrong');
+          }
+
+        } else {
+          // Load view with errors
+          $this->view('posts/add', $data);
+        }
+
+
+        }
+        
+        }else {
         $data = [
           'title' => '',
           'body' => '',
@@ -115,28 +154,21 @@
           'id' => $id,
           'title' => trim($_POST['title']),
           'body' => trim($_POST['body']),
-          'user_id' => $_SESSION['user_id'],   
-          'title_err' => '',
+          'user_id' => $_SESSION['user_id'],
           'body_err' => ''
         ];
-
-         // Validate email
-         if(empty($data['title'])){
-          $data['title_err'] = 'Please enter title';
-          // Validate name
           if(empty($data['body'])){
             $data['body_err'] = 'Please enter the post body';
           }
-        }
 
         // Make sure there are no errors
-        if(empty($data['title_err']) && empty($data['body_err'])){
-          // Validation passed
+        if(empty($data['body_err'])){
+      
           //Execute
           if($this->postModel->updatePost($data)){
           // Redirect to login
           flash('post_message', 'Post Updated');
-          redirect('posts');
+          redirect('posts/blog');
           } else {
             die('Something went wrong');
           }
@@ -144,8 +176,7 @@
           // Load view with errors
           $this->view('posts/edit', $data);
         }
-
-      } else {
+      }else {
         // Get post from model
         $post = $this->postModel->getPostById($id);
 
@@ -174,7 +205,7 @@
         if($this->postModel->deletePost($id)){
           // Redirect to login
           flash('post_message', 'Post Removed', 'alert alert-danger');
-          redirect('posts');
+          redirect('posts/blog');
           } else {
             die('Something went wrong');
           }
@@ -182,4 +213,67 @@
         redirect('posts');
       }
     }
+
+
+
+     // comments on Post
+    public function comment($id){
+      $post = $this->postModel->getPostById($id);
+      $user = $this->userModel->getUserById($post->user_id);
+      $comments = $this->postModel->getComments($id);
+      $date = date('Y-m-d');
+      $time = date('H:i:s');
+
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        // Sanitize POST
+        $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        $data = [
+         
+          'post_id' => $id,
+          'body' => trim($_POST['body']),
+          'user_id' => $_SESSION['user_id'],
+          'user_name' => $_SESSION['user_name'],
+          'date' => $date,
+          'time' => $time,
+          'body_err' => ''
+        ];
+
+       
+          // Validate post body
+          if(empty($data['body'])){
+            $data['body_err'] = 'Please enter your comment';
+          }
+
+        // Make sure there are no errors
+        if(empty($data['body_err'])){
+          // Validation passed
+          //Execute
+          if($this->postModel->addComment($data)){
+            // Redirect to login
+            flash('post_added', 'Comment Added');
+            redirect('posts');
+          } else {
+            die('Something went wrong');
+          }
+        } else {
+          // Load view with errors
+          $this->view('posts/add', $data);
+        }
+
+      }
+
+     
+      $data = [
+        'comments' => $comments,
+        'post' => $post, 
+        'user' => $user,
+        'title' => '',
+        'body' => '',
+      ];
+
+      $this->view('posts/comment', $data);
+    }
+
+
   }

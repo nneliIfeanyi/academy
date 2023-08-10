@@ -25,8 +25,7 @@
         
         <div class="row">
           <div class="col-md-6 mx-auto">
-            <a href="https://wa.me/8122321931?text=I%20just%20paid%20now%20here%20is%20my%20reciept" class="btn btn-success">
-            <i class="fa fa-whatsapp fa-fw"></i> Upload on WhatsApp
+           <h3 class="fw-bold"><a class="btn btn-outline-success rounded-2" href="<?php echo URLROOT ?>/posts/blog">Ignore this</a> If you already made payment</h3>
             </a>
           </div>
         </div>

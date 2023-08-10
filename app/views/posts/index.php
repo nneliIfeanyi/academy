@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc2/header2.php'; ?>
-<section style="background-image: url('');">
-  <div class="mt-2"><?php flash('login_success');?></div>
-  <div class="jumbotron jumbotron-fluid mt-3 shadow">
+<section style="background-image: url('');" class="jumbotron jumbotron-fluid">
+  <div class="mt-2 container"><?php flash('login_success');?></div>
+  <div class="mt-3">
     <div class="container">
       <h1 class="display-3"><?php echo $data['title']; ?></h1>
       <p class="lead text-success"><?php echo $data['description']; ?></p>
@@ -16,8 +16,8 @@
   <div class="container my-5">
     <div class="row">
       <?php require APPROOT . '/views/inc2/nav.php'; ?>
-      <div class="col-lg-9 pb-3 mb-3 text-center">
-       <h3 class="fw-bold">A Welcome Address</h3>
+      <div class="col-lg-9 pb-3 my-5 text-center">
+       <h3 class="fw-bold">Click <a class="btn btn-outline-success rounded-2" href="<?php echo URLROOT ?>/posts/blog">here</a> to view community interations.</h3>
       </div>
     </div>
   </div>

@@ -4,17 +4,16 @@
       <div class="card card-body bg-light mt-3">
         <h2>Add Post</h2>
         <p></p>
-        <form action="<?php echo URLROOT; ?>/posts/add" method="post">
+        <form action="<?php echo URLROOT; ?>/posts/add" method="post" enctype="multipart/form-data">
           <div class="form-group mb-2">
-              <label>Title</label>
-              <select name="title" class="form-control form-control-lg <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>">
-                <option value="">Choose title</option>
-                <option value="Anouncement">Anouncement</option>
-                <option value="Assignment">Assignment</option>
-              </select>
-            
-              <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
-          </div>    
+              <label>Title:</label>
+              <small>(optional)</small>
+              <input type="text" name="title" class="form-control form-control-lg">
+          </div>   
+          <div class="contents w3-margin">
+            <label class="w3-small">Post Pic</label><br>
+            <input type="file" name="result" class="w3-input">
+          </div> 
           <div class="form-group mb-1">
               <label>Body:<sup>*</sup></label>
               <textarea name="body" class="form-control form-control-lg <?php echo (!empty($data['body_err'])) ? 'is-invalid' : ''; ?>" placeholder="Add some text..."><?php echo $data['body']; ?></textarea>
