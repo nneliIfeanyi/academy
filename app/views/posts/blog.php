@@ -17,7 +17,7 @@
   </div>
   <?php foreach($data['posts'] as $post) : ?>
     <div class="card card-body mb-3">
-      <?php if(!empty($post->post_img)):?><a href="<?php echo URLROOT . "/" . $post->post_img; ?>"><div class="card-img"><img src="<?php echo URLROOT . "/" . $post->post_img; ?>" width="100%" height="200px"></div></div><?php endif;?>
+      <?php if(!empty($post->post_img)):?><a href="<?php echo URLROOT . "/" . $post->post_img; ?>"><div class="card-img"><img src="<?php echo URLROOT . "/" . $post->post_img; ?>" width="100%" height="200px"></div></a><?php endif;?>
       <h4 class="card-title text-success fw-bold"><?php echo $post->title; ?></h4>
       <!--<div class="bg-light p-2 mb-3">
         Posted by <?php echo $post->user_name; ?> on <?php echo $post->created_at; ?>
