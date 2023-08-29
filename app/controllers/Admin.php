@@ -3,13 +3,16 @@
 
     public function __construct(){
      $this->userModel = $this->model('User');
-     if ($_SESSION['user_password'] != '88888') {
-       redirect('posts');
-     }
+     
     }
     
     
     public function index(){
+      //auth
+      if ($_SESSION['user_password'] != '88888') {
+       redirect('posts');
+     }
+
       $students = $this->userModel->allStudent();
       $data = [
         'title' => 'Welcome Admin',

@@ -5,13 +5,13 @@
       $this->postModel = $this->model('Post');
       $this->userModel = $this->model('User');
 
-      if(!$this->userModel->paid($_SESSION['user_name'])) {
-        redirect('pages/verify');
-      }
     }
 
     // Load All Posts
     public function index(){
+       if(!$this->userModel->paid($_SESSION['user_name'])) {
+        redirect('pages/verify');
+      }
       $posts = $this->postModel->getPosts();
 
       $data = [
