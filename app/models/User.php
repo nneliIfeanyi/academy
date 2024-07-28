@@ -9,16 +9,13 @@
     // Add User / Register
     public function register($data){
       // Prepare Query
-      $this->db->query('INSERT INTO students (full_name, user_name, sex, phone, passport, reg_date) 
-      VALUES (:full_name, :user_name, :sex, :phone, :passport, :reg_date)');
+      $this->db->query('INSERT INTO users (name, email,password) 
+      VALUES (:name, :email, :password)');
 
       // Bind Values
-      $this->db->bind(':full_name', $data['full_name']);
-      $this->db->bind(':user_name', $data['user_name']);
-      $this->db->bind(':sex', $data['sex']);
-      $this->db->bind(':phone', $data['phone']);
-      $this->db->bind(':passport', $data['profile_pic']);
-      $this->db->bind(':reg_date', $data['reg_date']);
+      $this->db->bind(':name', $data['name']);
+      $this->db->bind(':email', $data['email']);
+      $this->db->bind(':password', $data['password']);
       
       //Execute
       if($this->db->execute()){
@@ -28,116 +25,39 @@
       }
     }
 
+    // Find USer BY Email
+    public function findUserByEmail($email){
+      $this->db->query("SELECT * FROM users WHERE email = :email");
+      $this->db->bind(':email', $email);
 
+      $row = $this->db->single();
 
-    public function verify($data){
-      // Prepare Query
-      $this->db->query('UPDATE students SET payment = :reciept WHERE id = :id');
-
-      // Bind Values
-      $this->db->bind(':id', $data['id']);
-      $this->db->bind(':reciept', $data['status']);
-      
-      //Execute
-      if($this->db->execute()){
+      //Check Rows
+      if($this->db->rowCount() > 0){
         return true;
       } else {
         return false;
       }
     }
-
-    public function reverse($data){
-      // Prepare Query
-      $this->db->query('UPDATE students SET payment = :reciept WHERE id = :id');
-
-      // Bind Values
-      $this->db->bind(':id', $data['id']);
-      $this->db->bind(':reciept', $data['status']);
-      
-      //Execute
-      if($this->db->execute()){
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-
-       // Find USer BY phone
-    public function findUserByPhone($phone){
-        $this->db->query("SELECT * FROM students WHERE phone = :phone");
-        $this->db->bind(':phone', $phone);
-  
-        $row = $this->db->single();
-  
-        //Check Rows
-        if($this->db->rowCount() > 0){
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-
-    public function findUser($user_name){
-        $this->db->query("SELECT * FROM students WHERE user_name = :user_name");
-        $this->db->bind(':user_name', $user_name);
-  
-        $row = $this->db->single();
-  
-        //Check Rows
-        if($this->db->rowCount() > 0){
-          return true;
-        } else {
-          return false;
-        }
-      }
 
     // Login / Authenticate User
-    public function login($user_name, $password){
-      $this->db->query("SELECT * FROM students WHERE user_name = :user_name");
-      $this->db->bind(':user_name', $user_name);
+    public function login($email, $password){
+      $this->db->query("SELECT * FROM users WHERE email = :email");
+      $this->db->bind(':email', $email);
 
       $row = $this->db->single();
       
-       //Check Rows
-        if($row->phone == $password){
-          return $row;
-        } else {
-          return false;
-        }
-      
-    }
-
-
-    public function allStudent(){
-
-      $this->db->query("SELECT * FROM students ORDER BY id DESC");
-
-      $results = $this->db->resultset();
-  
-      return $results;
-    }
-
-     // Login / Authenticate User
-    public function paid($user_name){
-      $this->db->query("SELECT * FROM students WHERE user_name = :user_name");
-      $this->db->bind(':user_name', $user_name);
-
-      $row = $this->db->single();
-      
-       //Check Rows
-        if ($row->payment == 'yes') {
-          return true;
-        } else {
-          return false;
-        }
-      
+      $hashed_password = $row->password;
+      if(password_verify($password, $hashed_password)){
+        return $row;
+      } else {
+        return false;
+      }
     }
 
     // Find User By ID
     public function getUserById($id){
-      $this->db->query("SELECT * FROM students WHERE id = :id");
+      $this->db->query("SELECT * FROM users WHERE id = :id");
       $this->db->bind(':id', $id);
 
       $row = $this->db->single();

@@ -1,63 +1,42 @@
-﻿<?php require APPROOT . '/views/inc/header.php'; ?>
-		<div class="container w3-card-4 w3-margin">
+<?php require APPROOT . '/views/inc/header.php'; ?>
 
-			<div class="w3-container heading">
-				<h1 class="w3-serif" style="color: #0a1b89;font-weight: bolder;">REGISTRATION FORM</h1>
-			</div>
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body bg-light mt-5">
+      <h2>Create An Account</h2>
+      <p>Please fill this form to register with us</p>
+      <form action="<?php echo URLROOT; ?>/users/register" method="post">
+        <div class="form-group">
+            <label>Name:<sup>*</label>
+            <input type="text" name="name" class="form-control form-control-lg <?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>">
+            <span class="invalid-feedback"><?php echo $data['name_err']; ?></span>
+        </div> 
+        <div class="form-group">
+            <label>Email Address:<sup>*</sup></label>
+            <input type="text" name="email" class="form-control form-control-lg <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>">
+            <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
+        </div>    
+        <div class="form-group">
+            <label>Password:<sup>*</sup></label>
+            <input type="password" name="password" class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
+            <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password:<sup>*</sup></label>
+            <input type="password" name="confirm_password" class="form-control form-control-lg <?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['confirm_password']; ?>">
+            <span class="invalid-feedback"><?php echo $data['confirm_password_err']; ?></span>
+        </div>
 
-			<div class="w3-container">
-				 	<p>Registration fee is &#8358;500<br>While tuition fee is &#8358;5000</p>
-				 	<p style="font-weight: bold;"> Total payment is <span style="color: #0a1b89;">&#8358;5500</span></p>
-          <p><?=flash('image_invalid')?></p>
-			</div>
-		
-			<form action="<?= URLROOT ?>/users/register" method="POST" enctype="multipart/form-data">
-				<div class="inputs w3-border">
-
-					<div class=" w3-margin">
-						<input type="text" name="f_name" class="w3-input" placeholder="First name" value="<?= $_POST['f_name'] ?>">
-            <span class="w3-text-red"><?= $data['f_name_err'] ?></span>
-					</div>
-
-					<div class="contents w3-margin">
-						<input type="text" name="m_name" class="w3-input" placeholder="Middle name" value="<?= $_POST['m_name'] ?>">
-             <span class="w3-text-red"><?= $data['m_name_err'] ?></span>
-					</div>				
-	
-					<div class="contents w3-margin">
-						<input type="text" name="surname" class="w3-input" placeholder="Surname" value="<?= $_POST['surname'] ?>">
-             <span class="w3-text-red"><?= $data['surname_err'] ?></span>
-					</div>
-
-					<div class="contents w3-margin w3-border-bottom">
-						<input type="radio" name="sex" value="male"> male
-						<input type="radio" name="sex" value="female"> female
-             <span class="w3-text-red"><?= $data['sex_err'] ?></span>
-					</div>	
-	
-					<div class="contents w3-margin">
-						<input type="number" name="phone" class="w3-input" placeholder="Phone number" value="<?= $data['phone'] ?>">
-             <span class="w3-text-red"><?= $data['phone_err'] ?></span>
-					</div>
-					<!--<div class="contents w3-margin">
-						<label class="w3-small">Screenshot of payment reciept of &#8358;500</label><br>
-						<input type="file" name="reciept" class="w3-input">
-             <span class="w3-small w3-text-red"><?= $data['reciept_err'] ?></span>
-					</div>-->
-					<div class="contents w3-margin">
-						<label class="w3-small">Profile Pic</label><br>
-						<img src="<?= URLROOT ?>/img/avatar_boy.png" height="80" width="80">
-						<input type="file" name="profile_pic" class="w3-input">
-             <span class="w3-text-red"><?= $data['profile_pic_err']; ?></span>
-					</div>
-
-					<div class="w3-margin w3-sans-serif">
-						<input type="submit" name="submit" value="SUBMIT" class="w3-btn w3-padding-large w3-round w3-text-white" style="background-color: #0a1b89;">
-						<a href="<?= URLROOT ?>/pages" class="btn btn-light w3-padding">Go Back</a>
-					</div>
-
-
-				</div>
-			</form>
-		</div>
+        <div class="form-row">
+          <div class="col">
+            <input type="submit" class="btn btn-success btn-block" value="Register">
+          </div>
+          <div class="col">
+            <a href="<?php echo URLROOT; ?>/users/login" class="btn btn-light btn-block">Have an account? Login</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -1,26 +1,20 @@
-<?php require APPROOT . '/views/inc2/header2.php'; ?>
-<div class="container">
-<a href="<?php echo URLROOT; ?>/posts" class="btn btn-light mt-2"><i class="fa fa-backward" aria-hidden="true"></i> Back</a>
-      <div class="card card-body bg-light mt-3">
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<a href="<?php echo URLROOT; ?>" class="btn btn-light"><i class="fa fa-backward" aria-hidden="true"></i> Back</a>
+      <div class="card card-body bg-light mt-5">
         <h2>Add Post</h2>
-        <p></p>
-        <form action="<?php echo URLROOT; ?>/posts/add" method="post" enctype="multipart/form-data">
-          <div class="form-group mb-2">
-              <label>Title:</label>
-              <small>(optional)</small>
-              <input type="text" name="title" class="form-control form-control-lg">
-          </div>   
-          <div class="contents w3-margin">
-            <label class="w3-small">Post Pic</label><br>
-            <input type="file" name="result" class="w3-input">
-          </div> 
-          <div class="form-group mb-1">
+        <p>Create a post with this form</p>
+        <form action="<?php echo URLROOT; ?>/posts/add" method="post">
+          <div class="form-group">
+              <label>Title:<sup>*</sup></label>
+              <input type="text" name="title" class="form-control form-control-lg <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['title']; ?>" placeholder="Add a title...">
+              <span class="invalid-feedback"><?php echo $data['title_err']; ?></span>
+          </div>    
+          <div class="form-group">
               <label>Body:<sup>*</sup></label>
               <textarea name="body" class="form-control form-control-lg <?php echo (!empty($data['body_err'])) ? 'is-invalid' : ''; ?>" placeholder="Add some text..."><?php echo $data['body']; ?></textarea>
               <span class="invalid-feedback"><?php echo $data['body_err']; ?></span>
           </div>
-          <input type="submit" class="btn btn-success mt-2" value="Submit">
+          <input type="submit" class="btn btn-success" value="Submit">
         </form>
       </div>
-</div>
-<?php require APPROOT . '/views/inc2/footer2.php'; ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>
