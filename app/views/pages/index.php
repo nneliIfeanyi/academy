@@ -12,8 +12,8 @@
         <p class="lead text-white w-75 m-auto mb-4">
           <?php echo $data['core']->showcasep; ?>
         </p>
-        <a href="#register" class="btn btn-primary text-uppercase">
-          Join us &nbsp;<i class="fa fa-chevron-right"></i>
+        <a href="#enroll" class="btn btn-primary text-uppercase">
+          Join us &nbsp;<i class="fa fa-chevron-down"></i>
         </a>
       </div>
     </div>
@@ -74,25 +74,30 @@
         </ul>
       </div>
       <div class="col-lg-6 p-4">
-        <form>
+        <form action="<?php echo URLROOT; ?>/users/register" method="POST" id="enroll">
           <div class="my-4">
-            <input type="text" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter name" />
+            <input type="text" name="name" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter name" required data-parsley-trigger="keyup" />
           </div>
           <div class="my-4">
-            <input type="email" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter email" />
+            <input type="email" name="email" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter email" required data-parsley-type="email" data-parsley-trigger="keyup" />
           </div>
           <div class="my-4">
-            <input type="text" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter phone number" />
+            <input type="tel" name="mobile" class="form-control form-control-lg rounded-0 border-0" placeholder="Whatsapp number" required data-parsley-type='number' maxlength="11" data-parsley-length="[11, 11]" data-parsley-trigger="keyup" pattern="\d{11}" />
           </div>
           <div class="my-4">
-            <input type="text" class="form-control form-control-lg rounded-0 border-0" placeholder="What interests you" />
+            <select class="form-control form-control-lg rounded-0 border-0" name="course" required>
+              <option value="">Select course</option>
+              <?php foreach ($data['courses'] as $course) : ?>
+                <option value="<?php echo $course->title; ?>"><?php echo $course->title; ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" value="" />
+          <!-- <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" name="terms" />
             <label for="terms" class="form-check-label">
               I agree to the terms and conditions
             </label>
-          </div>
+          </div> -->
           <div class="d-grid mt-4">
             <button class="btn btn-outline-dark">Register &nbsp;<i class="fa fa-chevron-right"></i></button>
           </div>
@@ -148,8 +153,8 @@
               broaden your horizons. Join us and be a part of this enriching
               experience!
             </p>
-            <a href="#register" class="btn btn-primary btn-lg">
-              Register Now &nbsp;<i class="fa fa-chevron-right"></i>
+            <a href="#enroll" class="btn btn-primary btn-lg">
+              Register Now &nbsp;<i class="fa fa-chevron-up"></i>
             </a>
           </div>
         </div>
@@ -172,26 +177,26 @@
 
     <!-- Row 1 -->
     <div class="row">
-      <?php foreach ($data['ui'] as $ui) : ?>
+      <?php foreach ($data['courses'] as $course) : ?>
         <div class="col-md-4">
           <div class="card mb-4 rounded-0 border-0 p-3">
             <div class="card-body text-center">
-              <i class="<?php echo $ui->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
-              <h5 class="card-title"><?php echo $ui->title ?></h5>
+              <i class="<?php echo $course->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
+              <h5 class="card-title"><?php echo $course->title ?></h5>
               <p class="card-text">
-                <?php echo $ui->dsc ?>
+                <?php echo $course->dsc ?>
               </p>
               <ul class="list-group">
                 <li class="list-group-item  d-flex gap-3">
                   <i class="fas fa-clock" style="font-size: 20px;"></i>
-                  <p class="fw-semibold"><?php echo $ui->duration ?></p>
+                  <p class="fw-semibold"><?php echo $course->duration ?></p>
                 </li>
                 <li class="list-group-item  d-flex gap-2">
                   <i class="fas fa-map-marker" style="font-size: 20px;"></i>
-                  <p class="fw-semibold" style="font-size: 13px;"><?php echo $ui->venue ?></p>
+                  <p class="fw-semibold" style="font-size: 13px;"><?php echo $course->venue ?></p>
                 </li>
                 <li class="list-group-item  text-center text-bg-dark">
-                  <p style="font-size: 28px; font-weight:bolder"><i class="fas fa-naira"></i><?php echo $ui->price ?></p>
+                  <p style="font-size: 28px; font-weight:bolder"><i class="fas fa-naira"></i><?php echo $course->price ?></p>
                 </li>
               </ul>
               <div class="d-grid">
@@ -265,7 +270,7 @@
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#courses">Courses</a></li>
-          <li><a href="#">Enroll</a></li>
+          <li><a href="#enroll">Enroll</a></li>
           <li><a href="#contact">Contact us</a></li>
         </ul>
       </div>
@@ -289,3 +294,6 @@
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+<script>
+  $('#enroll').parsley();
+</script>

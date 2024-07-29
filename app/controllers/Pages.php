@@ -2,7 +2,7 @@
 
 class Pages extends Controller
 {
-
+  private $uiModel;
   public function __construct()
   {
     $this->uiModel = $this->model('Ui');
@@ -11,17 +11,13 @@ class Pages extends Controller
   // Load Homepage
   public function index()
   {
-    $uidata = $this->uiModel->pullCourses();
+    $coursedata = $this->uiModel->pullCourses();
     $coredata = $this->uiModel->pullCoreData();
     $whyus = $this->uiModel->pullWhyChooseUs();
-    // If logged in, redirect to posts
-    if (isset($_SESSION['user_id'])) {
-      redirect('ui');
-    }
 
     //Set Data
     $data = [
-      'ui' => $uidata,
+      'courses' => $coursedata,
       'core' => $coredata,
       'whyus' => $whyus
     ];
