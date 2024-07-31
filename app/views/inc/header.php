@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.css" />
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/quill/quill.snow.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/styles.css" />
   <link rel="icon" href="images/favicon.png" />
   <title><?php echo SITENAME; ?></title>
@@ -21,19 +22,21 @@
       position: fixed;
       bottom: 0;
       right: 0;
-      width: auto;
+      width: 100%;
+      text-align: center;
       z-index: 500;
       animation-name: fade;
       animation-duration: 3s;
       animation-delay: 6s;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
+      transition: 2s;
     }
 
     .msg-flash {
       margin: 0;
       position: fixed;
-      top: 0;
+      bottom: 0;
       right: 0;
       width: auto;
       z-index: 500;
@@ -42,6 +45,7 @@
       animation-delay: 6s;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
+      transition: 2s;
     }
 
     @keyframes fade {
@@ -50,8 +54,9 @@
       }
 
       to {
-        z-index: -1;
         visibility: hidden;
+        z-index: -1;
+
       }
     }
 
@@ -100,3 +105,4 @@
 
 <body id="home">
   <?php echo flash('msg'); ?>
+  <div id="success-msg"></div>

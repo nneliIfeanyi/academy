@@ -1,6 +1,6 @@
  <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
    <div class="container">
-     <a href="<?php echo URLROOT; ?>/pages" class="navbar-brand">
+     <a href="<?php echo URLROOT; ?>/pages" class="navbar-brand fw-bold">
        <?php echo SITENAME; ?>
      </a>
      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

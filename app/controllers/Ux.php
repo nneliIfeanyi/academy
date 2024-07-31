@@ -13,7 +13,7 @@ class Ux extends Controller
     $this->userModel = $this->model('User');
   }
 
-  // Load All Posts
+  // Load All ux
   public function index()
   {
     $coursedata = $this->uiModel->pullCourses();
@@ -40,7 +40,8 @@ class Ux extends Controller
           'dsc' => trim($_POST['dsc']),
           'duration' => trim($_POST['duration']),
           'venue' => trim($_POST['venue']),
-          'price' => trim($_POST['price'])
+          'price' => trim($_POST['price']),
+          'requirement' => trim($_POST['requirement'])
         ];
 
         if ($this->uiModel->addCourse($data)) {
@@ -80,10 +81,31 @@ class Ux extends Controller
   }
 
 
-  // Add to the ui //
+  // Edit the ui //
   public function edit($param)
   {
     if ($param == 'course') {
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $data = [
+          'id' => trim($_POST['id']),
+          'icon' => trim($_POST['icon']),
+          'title' => trim($_POST['title']),
+          'dsc' => trim($_POST['dsc']),
+          'duration' => trim($_POST['duration']),
+          'venue' => trim($_POST['venue']),
+          'price' => trim($_POST['price']),
+          'requirement' => trim($_POST['requirement']),
+          'details' => trim($_POST['details'])
+        ];
+
+        if ($this->uiModel->updateCourse($data)) {
+          flash('msg', 'Course Edited Successfully..');
+          redirect('ux');
+        } else {
+          flash('msg', 'An error occured..', 'alert alert-danger');
+          redirect('ux');
+        }
+      }
     } elseif ($param == 'whyus') {
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<p class='alert alert-success alert-dismissible fade show' role='alert'>
@@ -119,6 +141,63 @@ class Ux extends Controller
       die('Something went wrong..');
     }
   }
+
+  // Delete Function
+  public function delete($param)
+  {
+    if ($param == 'course') {
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id = $_POST['id'];
+        //Execute
+        if ($this->uiModel->deleteCourse($id)) {
+          // Redirect to login
+          flash('msg', 'Course Removed', 'alert alert-danger');
+          redirect('ux');
+        } else {
+          die('Something went wrong');
+        }
+      } else {
+        redirect('ux');
+      }
+    } else {
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id = $_POST['id'];
+        //Execute
+        if ($this->uiModel->deleteWhyChooseUs($id)) {
+          // Redirect to login
+          flash('msg', 'Why Choose Us Removed', 'alert alert-danger');
+          redirect('ux');
+        } else {
+          die('Something went wrong');
+        }
+      } else {
+        redirect('ux');
+      }
+    }
+  }
+
+  // Message Here
+  public function sendMessage()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $data = [
+        'phone' => trim($_POST['phone']),
+        'messages' => trim($_POST['messages']),
+      ];
+
+      if ($this->uiModel->insertMessage($data)) {
+        echo "<p class='alert alert-success msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Message sent successfully.
+          </p>
+        ";
+      } else {
+        echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
+            <i class='fa fa-ban'></i> Something went wrong.
+          </p>
+        ";
+      }
+    }
+  }
   // // Show Single Post
   // public function show($id)
   // {
@@ -130,7 +209,7 @@ class Ux extends Controller
   //     'user' => $user
   //   ];
 
-  //   $this->view('posts/show', $data);
+  //   $this->view('ux/show', $data);
   // }
 
   // // Add Post
@@ -152,13 +231,13 @@ class Ux extends Controller
   //       if ($this->postModel->addPost($data)) {
   //         // Redirect to login
   //         flash('post_added', 'Post Added');
-  //         redirect('posts');
+  //         redirect('ux');
   //       } else {
   //         die('Something went wrong');
   //       }
   //     } else {
   //       // Load view with errors
-  //       $this->view('posts/add', $data);
+  //       $this->view('ux/add', $data);
   //     }
   //   } else {
   //     $data = [
@@ -166,7 +245,7 @@ class Ux extends Controller
   //       'body' => '',
   //     ];
 
-  //     $this->view('posts/add', $data);
+  //     $this->view('ux/add', $data);
   //   }
   // }
 
@@ -202,13 +281,13 @@ class Ux extends Controller
   //       if ($this->postModel->updatePost($data)) {
   //         // Redirect to login
   //         flash('post_message', 'Post Updated');
-  //         redirect('posts');
+  //         redirect('ux');
   //       } else {
   //         die('Something went wrong');
   //       }
   //     } else {
   //       // Load view with errors
-  //       $this->view('posts/edit', $data);
+  //       $this->view('ux/edit', $data);
   //     }
   //   } else {
   //     // Get post from model
@@ -216,7 +295,7 @@ class Ux extends Controller
 
   //     // Check for owner
   //     if ($post->user_id != $_SESSION['user_id']) {
-  //       redirect('posts');
+  //       redirect('ux');
   //     }
 
   //     $data = [
@@ -225,24 +304,10 @@ class Ux extends Controller
   //       'body' => $post->body,
   //     ];
 
-  //     $this->view('posts/edit', $data);
+  //     $this->view('ux/edit', $data);
   //   }
   // }
 
   // // Delete Post
-  // public function delete($id)
-  // {
-  //   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  //     //Execute
-  //     if ($this->postModel->deletePost($id)) {
-  //       // Redirect to login
-  //       flash('post_message', 'Post Removed');
-  //       redirect('posts');
-  //     } else {
-  //       die('Something went wrong');
-  //     }
-  //   } else {
-  //     redirect('posts');
-  //   }
-  // }
+
 }

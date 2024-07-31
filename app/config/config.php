@@ -8,6 +8,6 @@ define("DB_NAME", "stanvicc_corso2");
 // App Root
 define('APPROOT', dirname(dirname(__FILE__)));
 // URL Root
-define('URLROOT', 'http://localhost/academy');
+define('URLROOT', 'https://academy.stanvic.com.ng');
 // Site Name
-define('SITENAME', 'STANVIC');
+define('SITENAME', 'STANVIC ACADEMY');

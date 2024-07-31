@@ -66,11 +66,6 @@
             individuals and industry experts, fostering new connections and
             opportunities.
           </li>
-          <li>
-            <i class="fas fa-square"></i>
-            <strong>Affordality:</strong> We are committed in keeping our price to the minimum
-            even as we are open to installmental payment strategy.
-          </li>
         </ul>
       </div>
       <div class="col-lg-6 p-4">
@@ -195,16 +190,43 @@
                   <i class="fas fa-map-marker" style="font-size: 20px;"></i>
                   <p class="fw-semibold" style="font-size: 13px;"><?php echo $course->venue ?></p>
                 </li>
+                <li class="list-group-item  d-flex gap-2">
+                  <i class="fas fa-certificate" style="font-size: 20px;"></i>
+                  <p class="fw-semibold" style="font-size: 13px;">Certificate of Completion</p>
+                </li>
                 <li class="list-group-item  text-center text-bg-dark">
                   <p style="font-size: 28px; font-weight:bolder"><i class="fas fa-naira"></i><?php echo $course->price ?></p>
                 </li>
               </ul>
-              <div class="d-grid">
-                <a href="#" class="btn btn-primary mt-3">Reserve a seat &nbsp;<i class="fa fa-chevron-right"></i></a>
+              <div class="d-grid mt-3">
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#course<?php echo $course->id; ?>">
+                  <i class="fa fa-info-circle"></i> More details
+                </button>
               </div>
             </div>
           </div>
         </div>
+        <!-- More Details Modal -->
+        <div class="modal fade" id="course<?php echo $course->id; ?>" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title text-primary">Course Overview</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h6 class="m-0 text-muted">Course Requirements</h6>
+                <p><?php echo $course->requirement; ?></p>
+                <hr />
+                <h6 class="m-0 text-muted">What you'll learn</h6>
+                <p><?php echo $course->details; ?></p>
+              </div>
+              <div class="modal-footer">
+                <a href="#enroll" type="button" class="btn btn-primary">Enroll &nbsp;<i class="fa fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div><!-- End More Details Modal-->
       <?php endforeach; ?>
     </div>
   </div>
@@ -220,15 +242,18 @@
           <strong style="font-size: larger;">?</strong>
           <strong style="font-size: xx-large;">?</strong>
         </h2>
-        <form>
+        <form id="sendMessage">
           <div class="my-4">
-            <input class="form-control form-control-lg" placeholder="Send us a message" />
+            <input type="number" name="phone" required class="form-control form-control-lg" placeholder="Your Whatsapp number" />
+          </div>
+          <div class="my-4">
+            <textarea type="text" name="messages" required class="form-control form-control-lg" placeholder="Send us a message"></textarea>
             <div class="form-text">
               Your inquiries are welcomed
             </div>
           </div>
           <div class="d-grid">
-            <button class="btn btn-primary"> <i class="fa fa-paper-plane"></i> Send</button>
+            <input id="submit" type="submit" value="Send Message" class="btn btn-primary">
           </div>
         </form>
       </div>
@@ -255,8 +280,8 @@
             <p style="font-size: 12px;">Model commercial college<br>beside union bank Suleja</p>
           </li>
           <li class="list-group-item  d-flex gap-3">
-            <a href=""><i class="fab fa-whatsapp"></i></a>
-            <p style="font-size: 12px;">081224444448</p>
+            <a href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i></a>
+            <p style="font-size: 12px;">09168655298</p>
           </li>
           <li class="list-group-item  d-flex gap-3">
             <a href="tel:2348122321931"><i class="fas fa-phone"></i></a>
@@ -289,11 +314,39 @@
   </div>
 </footer>
 <div class="text-bg-dark text-center p-2">
-  <p>&copy; <?php echo date('Y'); ?> Stanvic Concepts</p>
+  <p>&copy; <?php echo date('Y'); ?> Stanvic Concepts, All Rights Reserved</p>
 </div>
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
   $('#enroll').parsley();
+</script>
+<script>
+  var sendMessage = document.querySelector('#sendMessage');
+  $('#sendMessage').parsley();
+  $('#sendMessage').on('submit', function(event) {
+    event.preventDefault();
+    if ($('#sendMessage').parsley().isValid()) {
+      $.ajax({
+        url: "<?php echo URLROOT; ?>/ux/sendMessage",
+        method: "POST",
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+          $('#submit').attr('disabled', 'disabled');
+          $('#submit').val('Saving details, pls wait ......');
+
+        },
+        success: function(data) {
+          sendMessage.reset();
+          $('#submit').attr('disabled', false);
+          $('#submit').val('Send');
+          $('#success-msg').html(data);
+        }
+      })
+    }
+
+  })
 </script>
