@@ -19,7 +19,7 @@
            <a class="nav-link" href="#courses">Courses</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="#enroll">Enroll</a>
+           <a class="nav-link" href="<?php echo URLROOT; ?>/users/register/1">Enroll</a>
          </li>
          <li class="nav-item">
            <a class="nav-link" href="#contact">Contact</a>

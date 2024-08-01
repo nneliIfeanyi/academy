@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome.css" />
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.css" />
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/quill/quill.snow.css">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/styles.css" />
   <link rel="icon" href="images/favicon.png" />
   <title><?php echo SITENAME; ?></title>

@@ -2,9 +2,11 @@
 class Users extends Controller
 {
   public $userModel;
+  private $uiModel;
   public function __construct()
   {
     $this->userModel = $this->model('User');
+    $this->uiModel = $this->model('Ui');
   }
 
   public function index()
@@ -12,44 +14,90 @@ class Users extends Controller
     redirect('welcome');
   }
 
-  public function register()
+  public function register($param)
   {
-    // Check if logged in
-    if ($this->isLoggedIn()) {
-      redirect('posts');
-    }
-
     // Check if POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Sanitize POST
       $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-      $data = [
-        'name' => trim($_POST['name']),
-        'email' => trim($_POST['email']),
-        'mobile' => trim($_POST['mobile']),
-        'course' => trim($_POST['course']),
-        'password' => "    ",
-      ];
-      //Check if user exist by email
-      if ($this->userModel->findUserByEmail($data['email'])) {
-        flash('msg', 'An error occured, email is already taken.. registration not successfull.', 'alert alert-danger');
-        redirect('pages');
-        exit();
-      }
-      // Hash Password
-      $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+      if ($param == '0') {
+        $fullname = trim($_POST['name']);
+        $data = [
+          'name' => $fullname,
+          'email' => trim($_POST['email']),
+          'mobile' => trim($_POST['mobile']),
+          'course' => trim($_POST['course']),
+          'password' => "    ",
+        ];
+        //Check if user exist by email
+        if ($this->userModel->findUserByEmail($data['email'])) {
+          echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> An error occured, email is already taken..
+          </p>
+        ";
+        } else {
+          // Hash Password
+          $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-      if ($this->userModel->register($data)) {
-        // Redirect to login
-        flash('register_success', 'Your registrationn is successfull');
-        $this->view('users/login', $data);
-      } else {
-        die('Something went wrong');
+          if ($this->userModel->register($data)) {
+            // Redirect to step two
+            $redirect = URLROOT . '/users/register/2';
+            // flash('msg', 'Your application is recieved, proceed to step 2');
+            // redirect('users/register/2');
+            echo "<p class='alert alert-success msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Your application is recieved, proceeding...
+          </p><meta http-equiv='refresh' content='3; $redirect'>
+        ";
+          } else {
+            die('Something went wrong');
+          }
+        }
+      } elseif ($param == '1') {
+        $fullname = trim($_POST['surname']) . ' ' . trim($_POST['othername']);
+        $data = [
+          'name' => $fullname,
+          'email' => trim($_POST['email']),
+          'mobile' => trim($_POST['mobile']),
+          'course' => trim($_POST['course']),
+          'password' => "    ",
+        ];
+        $redirect = URLROOT . '/users/register/2';
+        //Check if user exist by email
+        if ($this->userModel->findUserByEmail($data['email'])) {
+          $_SESSION['email'] = $data['email'];
+          echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Email is already taken, proceeding...
+          </p><meta http-equiv='refresh' content='5; $redirect'>
+        ";
+        } else {
+          // Hash Password
+          $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+          if ($this->userModel->register($data)) {
+            $_SESSION['email'] = $data['email'];
+            // Redirect to step two
+            $redirect = URLROOT . '/users/register/2';
+            // flash('msg', 'Your application is recieved, proceed to step 2');
+            // redirect('users/register/2');
+            echo "<p class='alert alert-success msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Your application is recieved, proceeding...
+          </p><meta http-equiv='refresh' content='5; $redirect'>
+        ";
+          } else {
+            die('Something went wrong');
+          }
+        }
+      } elseif ($param == '2') {
+        // Step two application
       }
     } else {
-      $data = [];
-      $this->view('pages/index', $data);
+      $coursedata = $this->uiModel->pullCourses();
+      $data = [
+        'param' => $param,
+        'courses' => $coursedata
+      ];
+      $this->view('users/register', $data);
     }
   }
   // User registration function ends... //

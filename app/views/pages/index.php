@@ -12,8 +12,8 @@
         <p class="lead text-white w-75 m-auto mb-4">
           <?php echo $data['core']->showcasep; ?>
         </p>
-        <a href="#enroll" class="btn btn-primary text-uppercase">
-          Join us &nbsp;<i class="fa fa-chevron-down"></i>
+        <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-primary text-uppercase">
+          Join us &nbsp;<i class="fa fa-chevron-right"></i>
         </a>
       </div>
     </div>
@@ -69,7 +69,7 @@
         </ul>
       </div>
       <div class="col-lg-6 p-4">
-        <form action="<?php echo URLROOT; ?>/users/register" method="POST" id="enroll">
+        <form id="enroll">
           <div class="my-4">
             <input type="text" name="name" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter name" required data-parsley-trigger="keyup" />
           </div>
@@ -94,7 +94,7 @@
             </label>
           </div> -->
           <div class="d-grid mt-4">
-            <button class="btn btn-outline-dark">Register &nbsp;<i class="fa fa-chevron-right"></i></button>
+            <input type="submit" id="submit" class="btn btn-outline-dark" value="Register Now">
           </div>
         </form>
       </div>
@@ -133,25 +133,23 @@
 
 <!-- Invitation OR Event-->
 <section class="invitation mb-5 bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="invitation-bg text-center py-6 rounded-5">
-          <div class="text-white w-75 m-auto">
-            <h2 class="display-5 fw-bold">Next Resumption</h2>
-            <p>
-              We cordially invite you to enroll for the <strong style="font-size: large;"><?php echo $data['core']->sessiontag; ?></strong>
-              training session to kickstart
-              <strong style="font-size: large;"><?php echo $data['core']->nextresumedate; ?></strong> through <strong style="font-size: large;"><?php echo $data['core']->enddate; ?></strong>. It will be an
-              engaging session where you can gain valuable practical knowledge about the latest trend in the tech industry.
-              Don't miss out on this opportunity to enhance your life and
-              broaden your horizons. Join us and be a part of this enriching
-              experience!
-            </p>
-            <a href="#enroll" class="btn btn-primary btn-lg">
-              Register Now &nbsp;<i class="fa fa-chevron-up"></i>
-            </a>
-          </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="invitation-bg text-center py-6 rounded-5">
+        <div class="text-white w-75 m-auto">
+          <h2 class="display-5 fw-bold">Next Resumption</h2>
+          <p>
+            We cordially invite you to enroll for the <strong style="font-size: large;"><?php echo $data['core']->sessiontag; ?></strong>
+            training session to kickstart
+            <strong style="font-size: large;"><?php echo $data['core']->nextresumedate; ?></strong> through <strong style="font-size: large;"><?php echo $data['core']->enddate; ?></strong>. It will be an
+            engaging session where you can gain valuable practical knowledge about the latest trend in the tech industry.
+            Don't miss out on this opportunity to enhance your life and
+            broaden your horizons. Join us and be a part of this enriching
+            experience!
+          </p>
+          <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-primary btn-lg">
+            Register Now &nbsp;<i class="fa fa-chevron-right"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -295,7 +293,7 @@
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#courses">Courses</a></li>
-          <li><a href="#enroll">Enroll</a></li>
+          <li><a href="<?php echo URLROOT; ?>/users/register/1">Enroll</a></li>
           <li><a href="#contact">Contact us</a></li>
         </ul>
       </div>
@@ -320,7 +318,32 @@
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
+  //var enrollForm = document.querySelector('#enroll');
   $('#enroll').parsley();
+  $('#enroll').on('submit', function(event) {
+    event.preventDefault();
+    if ($('#enroll').parsley().isValid()) {
+      $.ajax({
+        url: "<?php echo URLROOT; ?>/users/register/0",
+        method: "POST",
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+          $('#submit').attr('disabled', 'disabled');
+          $('#submit').val('Processing, pls wait ....');
+
+        },
+        success: function(data) {
+          //enrollForm.reset();
+          $('#submit').attr('disabled', false);
+          $('#submit').val('Register Now');
+          $('#success-msg').html(data);
+        }
+      })
+    }
+
+  })
 </script>
 <script>
   var sendMessage = document.querySelector('#sendMessage');
