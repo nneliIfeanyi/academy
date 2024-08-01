@@ -83,7 +83,7 @@
             <select class="form-control form-control-lg rounded-0 border-0" name="course" required>
               <option value="">Select course</option>
               <?php foreach ($data['courses'] as $course) : ?>
-                <option value="<?php echo $course->title; ?>"><?php echo $course->title; ?></option>
+                <option value="<?php echo $course->id . ',' . $course->title; ?>"><?php echo $course->title; ?></option>
               <?php endforeach; ?>
             </select>
           </div>

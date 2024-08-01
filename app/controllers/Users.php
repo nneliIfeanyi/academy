@@ -21,13 +21,16 @@ class Users extends Controller
       // Sanitize POST
       $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-      if ($param == '0') {
+      if ($param == '0') { // ie coming from the homepage
         $fullname = trim($_POST['name']);
+        $course = explode(',', trim($_POST['course']));
+        $courseName = $course[1];
+        $_SESSION['courseID'] = $course[0];
         $data = [
           'name' => $fullname,
           'email' => trim($_POST['email']),
           'mobile' => trim($_POST['mobile']),
-          'course' => trim($_POST['course']),
+          'course' => $courseName,
           'password' => "    ",
         ];
         //Check if user exist by email
@@ -46,20 +49,23 @@ class Users extends Controller
             // flash('msg', 'Your application is recieved, proceed to step 2');
             // redirect('users/register/2');
             echo "<p class='alert alert-success msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> Your application is recieved, proceeding...
-          </p><meta http-equiv='refresh' content='3; $redirect'>
+            <i class='fa fa-check-circle'></i> Your application is recieved, Proceeding...
+          </p><meta http-equiv='refresh' content='5; $redirect'>
         ";
           } else {
             die('Something went wrong');
           }
         }
-      } elseif ($param == '1') {
+      } elseif ($param == '1') { // ie coming from the register page step 1
         $fullname = trim($_POST['surname']) . ' ' . trim($_POST['othername']);
+        $course = explode(',', trim($_POST['course']));
+        $courseName = $course[1];
+        $_SESSION['courseID'] = $course[0];
         $data = [
           'name' => $fullname,
           'email' => trim($_POST['email']),
           'mobile' => trim($_POST['mobile']),
-          'course' => trim($_POST['course']),
+          'course' => $courseName,
           'password' => "    ",
         ];
         $redirect = URLROOT . '/users/register/2';
@@ -67,7 +73,7 @@ class Users extends Controller
         if ($this->userModel->findUserByEmail($data['email'])) {
           $_SESSION['email'] = $data['email'];
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> Email is already taken, proceeding...
+            <i class='fa fa-check-circle'></i> Email is already taken, Proceeding...
           </p><meta http-equiv='refresh' content='5; $redirect'>
         ";
         } else {
@@ -81,7 +87,7 @@ class Users extends Controller
             // flash('msg', 'Your application is recieved, proceed to step 2');
             // redirect('users/register/2');
             echo "<p class='alert alert-success msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> Your application is recieved, proceeding...
+            <i class='fa fa-check-circle'></i> Your application is recieved, Proceeding...
           </p><meta http-equiv='refresh' content='5; $redirect'>
         ";
           } else {
@@ -90,12 +96,45 @@ class Users extends Controller
         }
       } elseif ($param == '2') {
         // Step two application
+        $data = [
+          'soo' => trim($_POST['soo']),
+          'address' => trim($_POST['address']),
+          'dob' => trim($_POST['dob']),
+          'gender' => 'gender',
+          'email' => $_SESSION['email']
+        ];
+        if ($this->userModel->registerStep2($data)) {
+          // Redirect to step three
+          $redirect = URLROOT . '/users/register/3';
+          echo "<p class='alert alert-success msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Application submitted successfully, Proceeding...
+          </p><meta http-equiv='refresh' content='4; $redirect'>
+        ";
+        } else {
+          die('Something went wrong');
+        }
       }
     } else {
+      // Days CountDown
+      $resumption = mktime(0, 0, 0, 8, 12, 2024);
+      $today = time();
+      $diff = ($resumption - $today);
+      $minutes = (int)($diff / 60);
+      $hours = (int)($diff / 3600);
+      $day = (int)($diff / 86400);
+      $days = $day . ' days ' . $hours . ' hours ' . $minutes . ' minutes';
+      if (isset($_SESSION['courseID'])) {
+        $id = $_SESSION['courseID'];
+        $choosenCourse = $this->userModel->getCourseById($id);
+      } else {
+        $choosenCourse = '';
+      }
       $coursedata = $this->uiModel->pullCourses();
       $data = [
         'param' => $param,
-        'courses' => $coursedata
+        'courses' => $coursedata,
+        'course' => $choosenCourse,
+        'resume' => $days
       ];
       $this->view('users/register', $data);
     }

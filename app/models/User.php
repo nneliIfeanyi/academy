@@ -30,6 +30,26 @@ class User
     }
   }
 
+  public function registerStep2($data)
+  {
+    // Prepare Query
+    $this->db->query('UPDATE users SET soo = :soo, address = :address, dob = :dob, gender = :gender WHERE email = :email');
+
+    // Bind Values
+    $this->db->bind(':soo', $data['soo']);
+    $this->db->bind(':email', $data['email']);
+    $this->db->bind(':address', $data['address']);
+    $this->db->bind(':dob', $data['dob']);
+    $this->db->bind(':gender', $data['gender']);
+
+    //Execute
+    if ($this->db->execute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // Find USer BY Email
   public function findUserByEmail($email)
   {
@@ -44,6 +64,16 @@ class User
     } else {
       return false;
     }
+  }
+  // Get Course By Id
+  public function getCourseById($id)
+  {
+    $this->db->query("SELECT * FROM courses WHERE id = :id");
+    $this->db->bind(':id', $id);
+
+    $row = $this->db->single();
+
+    return $row;
   }
 
   // Login / Authenticate User

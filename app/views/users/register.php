@@ -29,7 +29,7 @@
             <select class="form-control form-control-lg" name="course" required>
               <option value="">Select course</option>
               <?php foreach ($data['courses'] as $course) : ?>
-                <option value="<?php echo $course->title; ?>"><?php echo $course->title; ?></option>
+                <option value="<?php echo $course->id . ',' . $course->title; ?>"><?php echo $course->title; ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -49,7 +49,7 @@
         <h2 class="text-center text-primary">Application Form <strong>-</strong> Step 2 of 3</h2>
 
         <hr />
-        <form action="<?php echo URLROOT; ?>/users/register/2" method="post">
+        <form id="step2">
           <div class="form-group mb-4">
             <label>State of origin</label>
             <input type="text" name="soo" required class="form-control form-control-lg">
@@ -72,12 +72,83 @@
           <p style="font-size: 15;"><strong>Acknowledgement:</strong>The application you are submitting is for addmissionn to a training course it is not an application for employement.</p>
           <input type="checkbox" name="acknowledge" required>&nbsp; I Understand.
           <div class="d-grid mt-4">
-            <input type="submit" class="btn btn-primary" value="Register">
+            <input type="submit" class="btn btn-primary" value="Continue">
           </div>
         </form>
       </div>
     </div>
   </div>
+<?php elseif ($data['param'] == '3') : ?>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card card-body bg-light mt-5 py-5">
+        <h2 class="text-center text-primary">Application Form <strong>-</strong> Step 3 of 3</h2>
+        <p class="text-center text-muted fw-bold">You are almost there, so lets get this done.</p>
+        <hr />
+        <p class="text-center">Based on your selected course of interest, paying online before <strong>resumption date </strong> will attract a discount of <strong>28%</strong> click <a href="">here</a> to proceed. <a href="">I will do this later.</a></p>
+        <!-- Remaining <?php echo $data['resume']; ?> -->
+        <div class="card mb-4 p-3">
+          <div class="card-body text-center">
+            <i class="<?php echo $data['course']->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
+            <h5 class="card-title"><?php echo $data['course']->title ?></h5>
+            <p class="card-text">
+              <?php echo $data['course']->dsc ?>
+            </p>
+            <ul class="list-group text-center">
+              <li class="list-group-item  d-flex gap-3">
+                <i class="fas fa-clock" style="font-size: 20px;"></i>
+                <p class="fw-semibold"><?php echo $data['course']->duration ?></p>
+              </li>
+              <li class="list-group-item  d-flex gap-2">
+                <i class="fas fa-map-marker" style="font-size: 20px;"></i>
+                <p class="fw-semibold" style="font-size: 13px;"><?php echo $data['course']->venue ?></p>
+              </li>
+              <li class="list-group-item  d-flex gap-2">
+                <i class="fas fa-certificate" style="font-size: 20px;"></i>
+                <p class="fw-semibold" style="font-size: 13px;">Certificate of Completion</p>
+              </li>
+              <li class="list-group-item  text-center text-bg-dark">
+                <p style="font-size: 28px; font-weight:bolder"><i class="fas fa-naira"></i><?php echo $data['course']->price ?></p>
+              </li>
+            </ul>
+            <div class="d-grid mt-3">
+              <a href="<?php echo URLROOT; ?>/users/register/venue" class="btn btn-primary">
+                I will pay <?php echo $data['course']->price ?> at the venue
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php elseif ($data['param'] == 'venue') : ?>
+  <div class="col-md-6 mx-auto mt-6">
+    <div class="card mb-4 p-3">
+      <div class="card-body text-center">
+        <h2 class="text-center text-primary">Your Application is Completed successfully</h2>
+        <hr />
+        <p class="my-5"><i class="fa fa-circle-check fa-5x"></i></p>
+        <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
+        <p style="font-size: small;">For more inquiries contact us on <a class="mt-4" style="text-decoration: none;" href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i> 09168655298</a></p>
+        <a href="<?php echo URLROOT; ?>/pages" class="btn btn-outline-dark">Back to homepage</a>
+      </div>
+    </div>
+  </div>
+<?php elseif ($data['param'] == 'later') : ?>
+  <div class="col-md-6 mx-auto mt-6">
+    <div class="card mb-4 p-3">
+      <div class="card-body text-center">
+        <h2 class="text-center text-primary">Your Application is Completed successfully</h2>
+        <hr />
+        <p class="my-5"><i class="fa fa-circle-check fa-5x"></i></p>
+        <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
+        <p style="font-size: small;">For more inquiries contact us on <a class="mt-4" style="text-decoration: none;" href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i> 09168655298</a></p>
+        <a href="<?php echo URLROOT; ?>/pages" class="btn btn-outline-dark">Back to homepage</a>
+        <a href="<?php echo URLROOT; ?>/pages" class="btn btn-dark mt-2">Proceed online payment &nbsp;<i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+  </div>
+<?php elseif ($data['param'] == 'now') : ?>
 <?php endif; ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
@@ -107,4 +178,27 @@
     }
 
   })
+</script>
+<script>
+  $('#step2').on('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: "<?php echo URLROOT; ?>/users/register/2",
+      method: "POST",
+      data: new FormData(this),
+      contentType: false,
+      processData: false,
+      beforeSend: function() {
+        $('#submit').attr('disabled', 'disabled');
+        $('#submit').val('Submitting, pls wait ....');
+
+      },
+      success: function(data) {
+        // $('#submit').attr('disabled', false);
+        // $('#submit').val('Register Now');
+        $('#success-msg').html(data);
+      }
+    });
+
+  });
 </script>
