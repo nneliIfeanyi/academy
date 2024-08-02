@@ -1,6 +1,6 @@
  <div class="sticky-top">
-   <div class="text-bg-info pt-3 pb-1 rounded-2">
-     <h5><i class="fa fa-info-circle"></i>&nbsp; 28% discount on all courses valid till &nbsp;<span class="fw-bold text-primary" id="countDown"></span></h5>
+   <div class="text-bg-info pt-3 pb-1 px-2 rounded-2">
+     <h5><i class="fa fa-info-circle"></i>&nbsp; 28% discount on all courses valid till &nbsp;<span class="fw-bold bg-dark badge text-primary" id="countDown"></span></h5>
    </div>
  </div>
  <nav class="navbar navbar-expand-lg text-bg-dark navbar-dark">
