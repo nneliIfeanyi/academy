@@ -85,7 +85,7 @@
         <h2 class="text-center text-primary">Application Form <strong>-</strong> Step 3 of 3</h2>
         <p class="text-center text-muted fw-bold">You are almost there, so lets get this done.</p>
         <hr />
-        <p class="text-center">Based on your selected course of interest, paying online before <strong>resumption date </strong> will attract a discount of <strong>28%</strong> click <a href="">here</a> to proceed. <a href="">I will do this later.</a></p>
+        <p class="text-center">Based on your selected course of interest, paying online before <strong>resumption date </strong> will attract a discount of <strong>28%</strong> click <a href="https://paystack.com/pay/stanvicacad1">here</a> to proceed. <a href="<?php echo URLROOT; ?>/users/register/later">I will do this later.</a></p>
         <!-- Remaining <?php echo $data['resume']; ?> -->
         <div class="card mb-4 p-3">
           <div class="card-body text-center">
@@ -125,7 +125,7 @@
   <div class="col-md-6 mx-auto mt-6">
     <div class="card mb-4 p-3">
       <div class="card-body text-center">
-        <h2 class="text-center text-primary">Your Application is Completed successfully</h2>
+        <h2 class="text-center text-primary">Your Application is Completed Successfully</h2>
         <hr />
         <p class="my-5"><i class="fa fa-circle-check fa-5x"></i></p>
         <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
@@ -138,7 +138,7 @@
   <div class="col-md-6 mx-auto mt-6">
     <div class="card mb-4 p-3">
       <div class="card-body text-center">
-        <h2 class="text-center text-primary">Your Application is Completed successfully</h2>
+        <h2 class="text-center text-primary">Your Application is Completed Successfully</h2>
         <hr />
         <p class="my-5"><i class="fa fa-circle-check fa-5x"></i></p>
         <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
@@ -148,7 +148,19 @@
       </div>
     </div>
   </div>
-<?php elseif ($data['param'] == 'now') : ?>
+<?php elseif ($data['param'] == 'success') : ?>
+  <div class="col-md-6 mx-auto mt-6">
+    <div class="card mb-4 p-3">
+      <div class="card-body text-center">
+        <h2 class="text-center text-primary">Your Application is Completed Successfully And Your Payment Recieved.</h2>
+        <hr />
+        <p class="my-5"><i class="fa fa-circle-check fa-5x"></i></p>
+        <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
+        <p style="font-size: small;">For more inquiries contact us on <a class="mt-4" style="text-decoration: none;" href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i> 09168655298</a></p>
+        <a href="<?php echo URLROOT; ?>/pages" class="btn btn-outline-dark">Back to homepage</a>
+      </div>
+    </div>
+  </div>
 <?php endif; ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
