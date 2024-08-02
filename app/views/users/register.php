@@ -1,9 +1,10 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
+
 <?php if ($data['param'] == '1') : ?>
   <div class="row">
     <div class="col-md-6 mx-auto">
-      <div class="card card-body bg-light mt-5 py-5">
+      <div class="card card-body bg-light my-5 py-5">
         <h2 class="text-center text-primary">Application Form</h2>
         <p class="text-center text-muted">Your application is your first step to your new future. Get started now.</p>
         <hr />
@@ -45,7 +46,7 @@
 <?php elseif ($data['param'] == '2') : ?>
   <div class="row">
     <div class="col-md-6 mx-auto">
-      <div class="card card-body bg-light mt-5 py-5">
+      <div class="card card-body bg-light my-5 py-5">
         <h2 class="text-center text-primary">Application Form <strong>-</strong> Step 2 of 3</h2>
 
         <hr />
@@ -81,14 +82,11 @@
 <?php elseif ($data['param'] == '3') : ?>
   <div class="row">
     <div class="col-md-6 mx-auto">
-      <div class="card card-body bg-light mt-5 py-5">
+      <div class="card card-body bg-light my-5 py-5">
         <h2 class="text-center text-primary">Application Form <strong>-</strong> Step 3 of 3</h2>
         <p class="text-center text-muted fw-bold">You are almost there, so lets get this done.</p>
         <hr />
         <p class="text-center">Based on your selected course of interest, paying online before <strong>resumption date </strong> will attract a discount of <strong>28%</strong> that is <strong>N18,500</strong> instead of <strong style="text-decoration: line-through;"><?php echo $data['course']->price; ?></strong> click <a href="https://paystack.com/pay/stanvicacad1">here</a> to proceed. <a href="<?php echo URLROOT; ?>/users/register/later">I will do this later.</a></p>
-        <div class="alert alert-info">
-          <i class="fa fa-info-circle"></i>&nbsp; 28% discount is valid till &nbsp;<span class="fw-bold text-primary" id="countDown"></span>
-        </div>
         <div class="card mb-4 p-3">
           <div class="card-body text-center">
             <i class="<?php echo $data['course']->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
@@ -124,7 +122,7 @@
     </div>
   </div>
 <?php elseif ($data['param'] == 'venue') : ?>
-  <div class="col-md-6 mx-auto mt-6">
+  <div class="col-md-6 mx-auto my-6">
     <div class="card mb-4 p-3">
       <div class="card-body text-center">
         <h2 class="text-center text-primary">Your Application is Completed Successfully</h2>
@@ -151,7 +149,7 @@
     </div>
   </div>
 <?php elseif ($data['param'] == 'success') : ?>
-  <div class="col-md-6 mx-auto mt-6">
+  <div class="col-md-6 mx-auto my-6">
     <div class="card mb-4 p-3">
       <div class="card-body text-center">
         <h2 class="text-center text-primary">Your Application is Completed Successfully And Your Payment Recieved.</h2>
@@ -215,34 +213,4 @@
     });
 
   });
-</script>
-<script>
-  // Set the date we're counting down to
-  var countDownDate = new Date("Aug 12, 2024 10:00:25").getTime();
-
-  // Update the count down every 1 second
-  var x = setInterval(function() {
-
-    // Get today's date and time
-    var now = new Date().getTime();
-
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Display the result in the element with id="demo"
-    document.getElementById("countDown").innerHTML = days + "d " + hours + "h " +
-      minutes + "m " + seconds + "s ";
-
-    // If the count down is finished, write some text
-    if (distance < 0) {
-      clearInterval(x);
-      document.getElementById("countDown").innerHTML = "EXPIRED";
-    }
-  }, 1000);
 </script>

@@ -1,4 +1,9 @@
- <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+ <div class="sticky-top">
+   <div class="text-bg-info pt-3 pb-1 rounded-2">
+     <h5><i class="fa fa-info-circle"></i>&nbsp; 28% discount on all courses valid till &nbsp;<span class="fw-bold text-primary" id="countDown"></span></h5>
+   </div>
+ </div>
+ <nav class="navbar navbar-expand-lg text-bg-dark navbar-dark">
    <div class="container">
      <a href="<?php echo URLROOT; ?>/pages" class="navbar-brand fw-bold">
        <?php echo SITENAME; ?>
@@ -9,20 +14,20 @@
      <div class="collapse navbar-collapse" id="navbarNavDropdown">
        <ul class="navbar-nav ms-auto">
          <li class="nav-item">
-           <a class="nav-link" aria-current="page" href="#home">Home</a>
+           <a class="nav-link" aria-current="page" href="<?php echo URLROOT; ?>/pages/welcome#home">Home</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="#about">About</a>
+           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#about">About</a>
          </li>
 
          <li class="nav-item">
-           <a class="nav-link" href="#courses">Courses</a>
+           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#courses">Courses</a>
          </li>
          <li class="nav-item">
            <a class="nav-link" href="<?php echo URLROOT; ?>/users/register/1">Enroll</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="#contact">Contact</a>
+           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#contact">Contact</a>
          </li>
        </ul>
        <span class="nav-item">
