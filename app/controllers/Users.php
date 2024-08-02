@@ -114,7 +114,7 @@ class Users extends Controller
           die('Something went wrong');
         }
       }
-    } else {
+    } else { // Server request not POST
       // Days CountDown
       $resumption = mktime(0, 0, 0, 8, 12, 2024);
       $today = time();

@@ -11,6 +11,12 @@ class Pages extends Controller
   // Load Homepage
   public function index()
   {
+    redirect('pages/welcome');
+  }
+
+
+  public function welcome()
+  {
     $coursedata = $this->uiModel->pullCourses();
     $coredata = $this->uiModel->pullCoreData();
     $whyus = $this->uiModel->pullWhyChooseUs();
@@ -23,9 +29,8 @@ class Pages extends Controller
     ];
 
     // Load homepage/index view
-    $this->view('pages/index', $data);
+    $this->view('pages/welcome', $data);
   }
-
   public function about()
   {
     //Set Data
