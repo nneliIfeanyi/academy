@@ -144,7 +144,7 @@
         <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
         <p style="font-size: small;">For more inquiries contact us on <a class="mt-4" style="text-decoration: none;" href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i> 09168655298</a></p>
         <a href="<?php echo URLROOT; ?>/pages" class="btn btn-outline-dark">Back to homepage</a>
-        <a href="<?php echo URLROOT; ?>/pages" class="btn btn-dark mt-2">Proceed online payment &nbsp;<i class="fa fa-chevron-right"></i></a>
+        <a href="https://paystack.com/pay/stanvicacad1" class="btn btn-dark mt-2">Proceed online payment &nbsp;<i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
   </div>
