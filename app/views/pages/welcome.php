@@ -176,9 +176,10 @@
                         <div class="card-body text-center">
                             <i class="<?php echo $course->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
                             <h5 class="card-title"><?php echo $course->title ?></h5>
-                            <p class="card-text">
+                            <br>
+                            <!-- <p class="card-text">
                                 <?php echo $course->dsc ?>
-                            </p>
+                            </p> -->
                             <ul class="list-group">
                                 <li class="list-group-item  d-flex gap-3">
                                     <i class="fas fa-clock" style="font-size: 20px;"></i>
@@ -206,13 +207,16 @@
                 </div>
                 <!-- More Details Modal -->
                 <div class="modal fade" id="course<?php echo $course->id; ?>" tabindex="-1">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-fullscreen">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h3 class="modal-title text-primary">Course Overview</h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <h6 class="m-0 text-muted">Course Description</h6>
+                                <p><?php echo $course->dsc; ?></p>
+                                <hr />
                                 <h6 class="m-0 text-muted">Course Requirements</h6>
                                 <p><?php echo $course->requirement; ?></p>
                                 <hr />
@@ -220,7 +224,7 @@
                                 <p><?php echo $course->details; ?></p>
                             </div>
                             <div class="modal-footer">
-                                <a href="#enroll" type="button" class="btn btn-primary">Enroll &nbsp;<i class="fa fa-chevron-right"></i></a>
+                                <a href="<?php echo URLROOT; ?>/users/register/1" type="button" class="btn btn-primary">Enroll &nbsp;<i class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
