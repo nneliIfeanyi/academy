@@ -180,17 +180,17 @@
                             <!-- <p class="card-text">
                                 <?php echo $course->dsc ?>
                             </p> -->
-                            <ul class="list-group">
-                                <li class="list-group-item  d-flex gap-3">
-                                    <i class="fas fa-clock" style="font-size: 20px;"></i>
-                                    <p class="fw-semibold"><?php echo $course->duration ?></p>
+                            <ul class="list-group text-center">
+                                <li class="list-group-item  d-flex">
+                                    <i class="fas fa-clock me-2" style="font-size: 20px;"></i>
+                                    <p class="fw-semibold" style="font-size: 13px;"><?php echo $course->duration ?></p>
                                 </li>
-                                <li class="list-group-item  d-flex gap-2">
-                                    <i class="fas fa-map-marker" style="font-size: 20px;"></i>
+                                <li class="list-group-item  d-flex">
+                                    <i class="fas fa-map-marker me-2" style="font-size: 20px;"></i>
                                     <p class="fw-semibold" style="font-size: 13px;"><?php echo $course->venue ?></p>
                                 </li>
-                                <li class="list-group-item  d-flex gap-2">
-                                    <i class="fas fa-certificate" style="font-size: 20px;"></i>
+                                <li class="list-group-item  d-flex">
+                                    <i class="fas fa-certificate me-2" style="font-size: 20px;"></i>
                                     <p class="fw-semibold" style="font-size: 13px;">Certificate of Completion</p>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-around text-bg-dark">

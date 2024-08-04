@@ -7,7 +7,7 @@
         <h2>Edit Course</h2>
         <p>Change the details of this course</p>
         <form action="<?php echo URLROOT; ?>/ux/edit/advance" method="post">
-          <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
+          <input type="hidden" name="id" value="<?php echo $data['course']->id; ?>">
           <div class="form-group mb-4">
             <label style="font-size: small;">Course payment link</label>
             <input type="text" name="paylink" class="form-control form-control-lg <?php echo (!empty($data['paylink_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['course']->paylink; ?>">
