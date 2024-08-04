@@ -71,8 +71,8 @@ class Ui
     public function addCourse($data)
     {
         // Prepare Query
-        $this->db->query('INSERT INTO courses (icon, title, dsc, duration, venue, price, requirement) 
-      VALUES (:icon, :title, :dsc, :duration, :venue, :price, :requirement)');
+        $this->db->query('INSERT INTO courses (icon, title, dsc, duration, venue, price, requirement, creator) 
+      VALUES (:icon, :title, :dsc, :duration, :venue, :price, :requirement, :creator)');
 
         // Bind Values
         $this->db->bind(':icon', $data['icon']);
@@ -82,6 +82,7 @@ class Ui
         $this->db->bind(':venue', $data['venue']);
         $this->db->bind(':price', $data['price']);
         $this->db->bind(':requirement', $data['requirement']);
+        $this->db->bind(':creator', $_SESSION['creator_username']);
 
         //Execute
         if ($this->db->execute()) {
