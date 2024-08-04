@@ -171,7 +171,7 @@
         <!-- Row 1 -->
         <div class="row">
             <?php foreach ($data['courses'] as $course) : ?>
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="card mb-4 rounded-0 border-0 p-3">
                         <div class="card-body text-center">
                             <i class="<?php echo $course->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
@@ -180,7 +180,7 @@
                             <!-- <p class="card-text">
                                 <?php echo $course->dsc ?>
                             </p> -->
-                            <ul class="list-group text-center">
+                            <ul class="list-group">
                                 <li class="list-group-item  d-flex">
                                     <i class="fas fa-clock me-2" style="font-size: 20px;"></i>
                                     <p class="fw-semibold" style="font-size: 13px;"><?php echo $course->duration ?></p>
@@ -221,11 +221,15 @@
                                 <h6 class="m-0 text-muted">Course Requirements</h6>
                                 <p class="lead" style="font-size: small;"><?php echo $course->requirement; ?></p>
                                 <hr />
-                                <h6 class="m-0 text-muted">Course Objectives</h6>
-                                <p class="lead" style="font-size: small;"><?php echo $course->objectives; ?></p>
+                                <?php if (!empty($course->objectives)) : ?>
+                                    <h6 class="m-0 text-muted">Course Objectives</h6>
+                                    <p class="lead" style="font-size: small;"><?php echo $course->objectives; ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="modal-footer">
-                                <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-outline-dark"><i class="fa fa-download"></i> Download Curriculum</a>
+                                <?php if (!empty($course->curriculum)) : ?>
+                                    <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-outline-dark"><i class="fa fa-download"></i> Download Curriculum</a>
+                                <?php endif; ?>
                                 <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-primary">Enroll &nbsp;<i class="fa fa-chevron-right"></i></a>
                             </div>
 
@@ -269,32 +273,32 @@
 <footer class="footer mt-4 text-bg-dark py-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4">
                 <h5>Next Resumption</h5>
                 <ul class="list-unstyled">
-                    <li class="list-group-item  d-flex gap-3">
+                    <li class="list-group-item  d-flex me-3">
                         <a href="javascript:void()"><i class="fa fa-chart-bar"></i></a>
                         <p style="font-size: 12px;"><?php echo $data['core']->nextresumedate; ?></p>
                     </li>
-                    <li class="list-group-item  d-flex gap-3">
+                    <li class="list-group-item  d-flex me-3">
                         <a href="javascript:void()"><i class="fas fa-clock"></i></a>
                         <p style="font-size: 12px;">10:00 AM Daily</p>
                     </li>
-                    <li class="list-group-item  d-flex gap-3">
+                    <li class="list-group-item  d-flex me-3">
                         <a href="javascript:void()"> <i class="fas fa-map-marker"></i></a>
                         <p style="font-size: 12px;">Model commercial college<br>beside union bank Suleja</p>
                     </li>
-                    <li class="list-group-item  d-flex gap-3">
+                    <li class="list-group-item  d-flex me-3">
                         <a href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i></a>
                         <p style="font-size: 12px;">09168655298</p>
                     </li>
-                    <li class="list-group-item  d-flex gap-3">
+                    <li class="list-group-item  d-flex me-3">
                         <a href="tel:2348122321931"><i class="fas fa-phone"></i></a>
                         <p style="font-size: 12px;">08122321931</p>
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4">
                 <h5>Quick Links</h5>
                 <ul class="list-unstyled">
                     <li><a href="#home">Home</a></li>
@@ -304,7 +308,7 @@
                     <li><a href="#contact">Contact us</a></li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4">
                 <h5>Connect</h5>
                 <div class="d-flex gap-3">
                     <a href="#"><i class="fab fa-facebook fa-3x text-white"></i></a>
