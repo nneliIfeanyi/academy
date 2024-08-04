@@ -102,7 +102,7 @@
                               </div>
                               <div class="my-3">
                                 <label style="font-size: small;">Course Description</label>
-                                <textarea name="dsc" value="<?php echo $course->dsc; ?>" class="form-control form-control-lg rounded-0 border-0" placeholder="Course description" required data-parsley-trigger="keyup"></textarea>
+                                <textarea name="dsc" class="form-control form-control-lg rounded-0 border-0" placeholder="Course description" required data-parsley-trigger="keyup"><?php echo $course->dsc; ?></textarea>
                               </div>
                               <div class="my-3">
                                 <label style="font-size: small;">Course Duration</label>
@@ -118,7 +118,7 @@
                               </div>
                               <div class="my-4">
                                 <label style="font-size: small;">Course Requirements</label>
-                                <textarea name="requirement" value="<?php echo $course->requirement; ?>" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter Course requirements" required data-parsley-trigger="keyup"></textarea>
+                                <textarea name="requirement" class="form-control form-control-lg rounded-0 border-0" placeholder="Enter Course requirements" required data-parsley-trigger="keyup"><?php echo $course->requirement; ?></textarea>
                               </div>
 
 

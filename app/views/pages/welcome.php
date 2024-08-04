@@ -193,8 +193,9 @@
                                     <i class="fas fa-certificate" style="font-size: 20px;"></i>
                                     <p class="fw-semibold" style="font-size: 13px;">Certificate of Completion</p>
                                 </li>
-                                <li class="list-group-item  text-center text-bg-dark">
-                                    <p style="font-size: 28px; font-weight:bolder"><i class="fas fa-naira"></i><?php echo $course->price ?></p>
+                                <li class="list-group-item d-flex justify-content-around text-bg-dark">
+                                    <p style="font-size: 20px;"><?php echo $course->discount ?></p>
+                                    <p class="text-danger" style="font-size: 17px; font-weight:bolder;text-decoration:line-through"><?php echo $course->price ?></p>
                                 </li>
                             </ul>
                             <div class="d-grid mt-3">

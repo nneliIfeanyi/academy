@@ -1,6 +1,6 @@
  <div class="sticky-top">
    <div class="alert alert-info alert-dismissible fade show" style="position: relative;">
-     <h5><i class="fa fa-info-circle"></i>&nbsp;More than 20% discount on all courses valid till &nbsp;<span class="fw-bold bg-dark badge text-primary" id="countDown"></span></h5>
+     <i class="fa fa-info-circle"></i>&nbsp;More than 20% discount on all courses valid till &nbsp;<span class="fw-bold bg-dark badge text-primary" id="countDown"></span>
      <button class="close" data-bs-dismiss="alert" style="position: absolute; right: 0; top:0;border:none"><i class="fa fa-times"></i></button>
    </div>
  </div>
