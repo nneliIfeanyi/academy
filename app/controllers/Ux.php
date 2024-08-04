@@ -32,7 +32,12 @@ class Ux extends Controller
   // Add to the ui //
   public function add($param)
   {
+
     if ($param == 'course') {
+      // Check if logged in
+      if (!$this->isLoggedIn()) {
+        redirect('ux/login');
+      }
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
           'icon' => trim($_POST['icon']),
@@ -45,9 +50,10 @@ class Ux extends Controller
         ];
 
         if ($this->uiModel->addCourse($data)) {
+          $redirect = URLROOT . '/ux/add/course';
           echo "<p class='alert alert-success msg-flash fade show' role='alert'>
             <i class='fa fa-check-circle'></i> Course was added successfully.
-          </p>
+          </p><meta http-equiv='refresh' content='4; $redirect'>
         ";
         } else {
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
@@ -55,6 +61,14 @@ class Ux extends Controller
           </p>
         ";
         }
+      } else {
+        $coursedata = $this->uiModel->pullCourses2();
+
+        $data = [
+          'courses' => $coursedata,
+        ];
+        // Load Add Course View
+        $this->view('ux/add', $data);
       }
     } elseif ($param == 'whyus') {
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -79,12 +93,19 @@ class Ux extends Controller
       die('Something went wrong..');
     }
   }
-
+  /////////////////////////////////////////////
+  ////////////////////////////////////////////
+  ////////// ADD UI ENDS HERE
 
   // Edit the ui //
   public function edit($param)
   {
+
     if ($param == 'course') {
+      // Check if logged in
+      if (!$this->isLoggedIn()) {
+        redirect('ux/login');
+      }
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [
           'id' => trim($_POST['id']),
@@ -94,26 +115,47 @@ class Ux extends Controller
           'duration' => trim($_POST['duration']),
           'venue' => trim($_POST['venue']),
           'price' => trim($_POST['price']),
-          'requirement' => trim($_POST['requirement']),
-          'details' => trim($_POST['details'])
+          'requirement' => trim($_POST['requirement'])
         ];
 
         if ($this->uiModel->updateCourse($data)) {
           flash('msg', 'Course Edited Successfully..');
-          redirect('ux');
+          redirect('ux/add/course');
         } else {
           flash('msg', 'An error occured..', 'alert alert-danger');
-          redirect('ux');
+          redirect('ux/add/course');
         }
       }
-    } elseif ($param == 'whyus') {
+    } elseif ($param == 'advance') {
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        echo "<p class='alert alert-success alert-dismissible fade show' role='alert'>
-    <i class='fas fa-check-circle'></i> Student namewas added successfully.
-    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
-        <span aria-hidden=\"true\">×</span>
-    </button>
-</p>";
+        $data = [
+          'id' => trim($_POST['id']),
+          'paylink' => trim($_POST['paylink']),
+          'discount' => trim($_POST['discount']),
+          'objectives' => trim($_POST['objectives']),
+          'curriculum' => trim($_POST['curriculum'])
+        ];
+
+        if ($this->uiModel->updateCourseAdvance($data)) {
+          flash('msg', 'Advance Course Edit Successfull');
+          redirect('ux/add/course');
+        } else {
+          flash('msg', 'An error occured..', 'alert alert-danger');
+          redirect('ux/add/course');
+        }
+      } else {
+        $id = $_GET['id'];
+        $courseToEdit = $this->userModel->getCourseById($id);
+        $data = [
+          'id' => $id,
+          'course' => $courseToEdit,
+          'param' => $param,
+          'paylink_err' => '',
+          'discount_err' => '',
+          'objectives_err' => '',
+          'curriculum_err' => ''
+        ];
+        $this->view('ux/edit', $data);
       }
     } elseif ($param == 'coredata') {
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -196,6 +238,108 @@ class Ux extends Controller
           </p>
         ";
       }
+    }
+  }
+
+  public function login()
+  {
+    // Check if logged in
+    if ($this->isLoggedIn()) {
+      redirect('ux/add/course');
+    }
+
+    // Check if POST
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Sanitize POST
+      $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $data = [
+        'email' => trim($_POST['email']),
+        'password' => trim($_POST['password']),
+        'email_err' => '',
+        'password_err' => '',
+      ];
+
+      // Check for email
+      if (empty($data['email'])) {
+        $data['email_err'] = 'Please enter email.';
+      }
+
+      // Check for name
+      if (empty($data['name'])) {
+        $data['name_err'] = 'Please enter name.';
+      }
+
+      // Check for user
+      if ($this->userModel->findCreatorByEmail($data['email'])) {
+        // User Found
+      } else {
+        // No User
+        $data['email_err'] = 'This email is not registered.';
+      }
+
+      // Make sure errors are empty
+      if (empty($data['email_err']) && empty($data['password_err'])) {
+
+        // Check and set logged in user
+        $loggedInUser = $this->userModel->creatorLogin($data['email'], $data['password']);
+
+        if ($loggedInUser) {
+          // User Authenticated!
+          $this->createUserSession($loggedInUser);
+          flash('msg', 'Welcome ' . $_SESSION['creator_username']);
+        } else {
+          $data['password_err'] = 'Password incorrect.';
+          // Load View
+          $this->view('ux/login', $data);
+        }
+      } else {
+        // Load View
+        $this->view('ux/login', $data);
+      }
+    } else {
+      // If NOT a POST
+
+      // Init data
+      $data = [
+        'email' => '',
+        'password' => '',
+        'email_err' => '',
+        'password_err' => '',
+      ];
+
+      // Load View
+      $this->view('ux/login', $data);
+    }
+  }
+
+
+  // Create Session With User Info
+  public function createUserSession($user)
+  {
+    $_SESSION['creator_id'] = $user->id;
+    $_SESSION['creator_email'] = $user->email;
+    $_SESSION['creator_username'] = $user->username;
+    redirect('ux/add/course');
+  }
+
+  // Logout & Destroy Session
+  public function logout()
+  {
+    unset($_SESSION['creator_id']);
+    unset($_SESSION['creator_email']);
+    unset($_SESSION['creator_username']);
+    session_destroy();
+    redirect('ux/login');
+  }
+
+  // Check Logged In
+  public function isLoggedIn()
+  {
+    if (isset($_SESSION['creator_id'])) {
+      return true;
+    } else {
+      return false;
     }
   }
   // // Show Single Post

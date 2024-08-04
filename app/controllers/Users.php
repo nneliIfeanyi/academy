@@ -34,9 +34,9 @@ class Users extends Controller
           'password' => "    ",
         ];
         //Check if user exist by email
-        if ($this->userModel->findUserByEmail($data['email'])) {
+        if ($this->userModel->findUserByEmail($data['email'], $data['course'])) {
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> An error occured, email is already taken..
+            <i class='fa fa-check-circle'></i> An error occured, you already registered for this course..
           </p>
         ";
         } else {
@@ -70,11 +70,10 @@ class Users extends Controller
         ];
         $redirect = URLROOT . '/users/register/2';
         //Check if user exist by email
-        if ($this->userModel->findUserByEmail($data['email'])) {
-          $_SESSION['email'] = $data['email'];
+        if ($this->userModel->findUserByEmail($data['email'], $data['course'])) {
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> Email is already taken, Proceeding...
-          </p><meta http-equiv='refresh' content='5; $redirect'>
+            <i class='fa fa-check-circle'></i> An error occured, you already registered for this course..
+          </p>
         ";
         } else {
           // Hash Password

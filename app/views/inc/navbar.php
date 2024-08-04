@@ -1,9 +1,10 @@
  <div class="sticky-top">
-   <div class="text-bg-info pt-3 pb-1 px-2 rounded-2">
-     <h5><i class="fa fa-info-circle"></i>&nbsp; 28% discount on all courses valid till &nbsp;<span class="fw-bold bg-dark badge text-primary" id="countDown"></span></h5>
+   <div class="alert alert-info alert-dismissible fade show" style="position: relative;">
+     <h5><i class="fa fa-info-circle"></i>&nbsp;More than 20% discount on all courses valid till &nbsp;<span class="fw-bold bg-dark badge text-primary" id="countDown"></span></h5>
+     <button class="close" data-bs-dismiss="alert" style="position: absolute; right: 0; top:0;border:none"><i class="fa fa-times"></i></button>
    </div>
  </div>
- <nav class="navbar navbar-expand-lg text-bg-dark navbar-dark">
+ <nav class="navbar navbar-expand-lg text-bg-dark navbar-dark" style="margin-top: -13px;">
    <div class="container">
      <a href="<?php echo URLROOT; ?>/pages" class="navbar-brand fw-bold">
        <?php echo SITENAME; ?>

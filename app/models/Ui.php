@@ -32,8 +32,15 @@ class Ui
 
     public function pullCourses()
     {
-        $this->db->query("SELECT * FROM courses;");
+        $this->db->query("SELECT * FROM courses");
+        $results = $this->db->resultset();
 
+        return $results;
+    }
+    public function pullCourses2()
+    {
+        $this->db->query("SELECT * FROM courses WHERE creator = :creator;");
+        $this->db->bind(':creator', $_SESSION['creator_username']);
         $results = $this->db->resultset();
 
         return $results;
@@ -111,7 +118,7 @@ class Ui
     public function updateCourse($data)
     {
         // Prepare Query
-        $this->db->query('UPDATE courses SET icon = :icon, title = :title, dsc = :dsc, duration = :duration, venue = :venue, price = :price, requirement = :requirement, details = :details WHERE id = :id');
+        $this->db->query('UPDATE courses SET icon = :icon, title = :title, dsc = :dsc, duration = :duration, venue = :venue, price = :price, requirement = :requirement WHERE id = :id');
 
         // Bind Values
         $this->db->bind(':id', $data['id']);
@@ -122,7 +129,26 @@ class Ui
         $this->db->bind(':venue', $data['venue']);
         $this->db->bind(':price', $data['price']);
         $this->db->bind(':requirement', $data['requirement']);
-        $this->db->bind(':details', $data['details']);
+
+        //Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateCourseAdvance($data)
+    {
+        // Prepare Query
+        $this->db->query('UPDATE courses SET paylink = :paylink, discount = :discount, objectives = :objectives, curriculum = :curriculum WHERE id = :id');
+
+        // Bind Values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':paylink', $data['paylink']);
+        $this->db->bind(':discount', $data['discount']);
+        $this->db->bind(':objectives', $data['objectives']);
+        $this->db->bind(':curriculum', $data['curriculum']);
 
         //Execute
         if ($this->db->execute()) {

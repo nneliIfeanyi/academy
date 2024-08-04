@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row mb-5 text-center">
             <div class="col-12 text-container">
-                <h1 class="display-3 text-white mt-3">
+                <h1 class="display-3 text-white mt-1">
                     <?php echo $data['core']->showcaseh1; ?>
                 </h1>
                 <p class="lead text-white w-75 m-auto mb-4">
@@ -207,7 +207,7 @@
                 </div>
                 <!-- More Details Modal -->
                 <div class="modal fade" id="course<?php echo $course->id; ?>" tabindex="-1">
-                    <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h3 class="modal-title text-primary">Course Overview</h3>
@@ -215,17 +215,19 @@
                             </div>
                             <div class="modal-body">
                                 <h6 class="m-0 text-muted">Course Description</h6>
-                                <p><?php echo $course->dsc; ?></p>
+                                <p class="lead" style="font-size: small;"><?php echo $course->dsc; ?></p>
                                 <hr />
                                 <h6 class="m-0 text-muted">Course Requirements</h6>
-                                <p><?php echo $course->requirement; ?></p>
+                                <p class="lead" style="font-size: small;"><?php echo $course->requirement; ?></p>
                                 <hr />
-                                <h6 class="m-0 text-muted">What you'll learn</h6>
-                                <p><?php echo $course->details; ?></p>
+                                <h6 class="m-0 text-muted">Course Objectives</h6>
+                                <p class="lead" style="font-size: small;"><?php echo $course->objectives; ?></p>
                             </div>
                             <div class="modal-footer">
-                                <a href="<?php echo URLROOT; ?>/users/register/1" type="button" class="btn btn-primary">Enroll &nbsp;<i class="fa fa-chevron-right"></i></a>
+                                <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-outline-dark"><i class="fa fa-download"></i> Download Curriculum</a>
+                                <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-primary">Enroll &nbsp;<i class="fa fa-chevron-right"></i></a>
                             </div>
+
                         </div>
                     </div>
                 </div><!-- End More Details Modal-->

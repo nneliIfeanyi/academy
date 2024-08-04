@@ -86,7 +86,7 @@
         <h2 class="text-center text-primary">Application Form <strong>-</strong> Step 3 of 3</h2>
         <p class="text-center text-muted fw-bold">You are almost there, so lets get this done.</p>
         <hr />
-        <p class="text-center">Based on your selected course of interest, paying online before <strong>resumption date </strong> will attract a discount of <strong>28%</strong> that is <strong>N18,500</strong> instead of <strong style="text-decoration: line-through;"><?php echo $data['course']->price; ?></strong> click <a href="https://paystack.com/pay/stanvicacad1">here</a> to proceed. <a href="<?php echo URLROOT; ?>/users/register/later">I will do this later.</a></p>
+        <p class="text-center">Based on your selected course of interest, paying online before <strong>resumption date </strong> will attract a discount of <strong><?php echo $data['course']->discount; ?></strong> instead of <strong class="text-danger" style="text-decoration: line-through;"><?php echo $data['course']->price; ?></strong> click <a href="https://paystack.com/pay/stanvicacad1">here</a> to proceed. <a href="<?php echo URLROOT; ?>/users/register/later">I will do this later.</a></p>
         <div class="card mb-4 p-3">
           <div class="card-body text-center">
             <i class="<?php echo $data['course']->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>

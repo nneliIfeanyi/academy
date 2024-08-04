@@ -51,9 +51,24 @@ class User
   }
 
   // Find USer BY Email
-  public function findUserByEmail($email)
+  public function findUserByEmail($email, $course)
   {
-    $this->db->query("SELECT * FROM users WHERE email = :email");
+    $this->db->query("SELECT * FROM users WHERE email = :email AND course = :course");
+    $this->db->bind(':email', $email);
+    $this->db->bind(':course', $course);
+
+    $row = $this->db->single();
+
+    //Check Rows
+    if ($this->db->rowCount() > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public function findCreatorByEmail($email)
+  {
+    $this->db->query("SELECT * FROM creators WHERE email = :email");
     $this->db->bind(':email', $email);
 
     $row = $this->db->single();
@@ -86,6 +101,21 @@ class User
 
     $hashed_password = $row->password;
     if (password_verify($password, $hashed_password)) {
+      return $row;
+    } else {
+      return false;
+    }
+  }
+
+  // Login / Authenticate User
+  public function creatorLogin($email, $password)
+  {
+    $this->db->query("SELECT * FROM creators WHERE email = :email");
+    $this->db->bind(':email', $email);
+
+    $row = $this->db->single();
+
+    if ($password = $row->password) {
       return $row;
     } else {
       return false;
