@@ -173,7 +173,7 @@
             <?php foreach ($data['courses'] as $course) : ?>
                 <div class="col-md-6 col-lg-4">
                     <div class="card mb-4 rounded-0 border-0 p-3">
-                        <div class="card-body text-center">
+                        <div class="card-body">
                             <i class="<?php echo $course->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
                             <h5 class="card-title"><?php echo $course->title ?></h5>
                             <br>
