@@ -173,7 +173,7 @@
             <?php foreach ($data['courses'] as $course) : ?>
                 <div class="col-md-6 col-lg-4">
                     <div class="card mb-4 rounded-0 border-0 p-3">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <i class="<?php echo $course->icon; ?> fa-5x text-primary bg-light rounded-circle p-3 my-4"></i>
                             <h5 class="card-title"><?php echo $course->title ?></h5>
                             <br>
@@ -270,30 +270,30 @@
     </div>
 </section>
 
-<footer class="footer mt-4 text-bg-dark py-5">
+<footer class="footer mt-4 text-bg-dark px-2 py-5">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-4">
                 <h5>Next Resumption</h5>
                 <ul class="list-unstyled">
-                    <li class="list-group-item  d-flex me-3">
-                        <a href="javascript:void()"><i class="fa fa-chart-bar"></i></a>
+                    <li class="list-group-item  d-flex">
+                        <a href="javascript:void()"><i class="fa fa-chart-bar me-3"></i></a>
                         <p style="font-size: 12px;"><?php echo $data['core']->nextresumedate; ?></p>
                     </li>
-                    <li class="list-group-item  d-flex me-3">
-                        <a href="javascript:void()"><i class="fas fa-clock"></i></a>
+                    <li class="list-group-item  d-flex">
+                        <a href="javascript:void()"><i class="fas fa-clock me-3"></i></a>
                         <p style="font-size: 12px;">10:00 AM Daily</p>
                     </li>
-                    <li class="list-group-item  d-flex me-3">
-                        <a href="javascript:void()"> <i class="fas fa-map-marker"></i></a>
+                    <li class="list-group-item  d-flex">
+                        <a href="javascript:void()"> <i class="fas fa-map-marker me-3"></i></a>
                         <p style="font-size: 12px;">Model commercial college<br>beside union bank Suleja</p>
                     </li>
-                    <li class="list-group-item  d-flex me-3">
-                        <a href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i></a>
+                    <li class="list-group-item  d-flex">
+                        <a href="https://wa.me/2349168655298"><i class="fab fa-whatsapp me-3"></i></a>
                         <p style="font-size: 12px;">09168655298</p>
                     </li>
                     <li class="list-group-item  d-flex me-3">
-                        <a href="tel:2348122321931"><i class="fas fa-phone"></i></a>
+                        <a href="tel:2348122321931"><i class="fas fa-phone me-3"></i></a>
                         <p style="font-size: 12px;">08122321931</p>
                     </li>
                 </ul>
