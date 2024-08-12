@@ -82,6 +82,8 @@ class Users extends Controller
 
           if ($this->userModel->register($data)) {
             $_SESSION['email'] = $data['email'];
+            $_SESSION['phone'] = $data['mobile'];
+            $_SESSION['course'] = $data['course'];
             // Redirect to step two
             $redirect = URLROOT . '/users/register/2';
             // flash('msg', 'Your application is recieved, proceed to step 2');
@@ -104,10 +106,32 @@ class Users extends Controller
           'email' => $_SESSION['email']
         ];
         if ($this->userModel->registerStep2($data)) {
-          // Redirect to step three
+          //Send sms
+          /////////////////////////////////////////////////////////////
+          $phone_number = ltrim($_SESSION['phone'], '\0');
+          $email = "stanvicbest@gmail.com";
+          $password = "824NXJ46mYhmSY$";
+          $message = "Congratulations you have successfully enrolled for " . $_SESSION['course'] . "with STANVIC CODING ACADEMY. Kindly login to your account with your email and password to make payment.";
+          $sender_name = "Stanvic";
+          $recipients = '234' . $phone_number;
+
+          $forcednd = "1";
+          $data = array("email" => $email, "password" => $password, "message" => $message, "sender_name" => $sender_name, "recipients" => $recipients, "forcednd" => $forcednd);
+          $data_string = json_encode($data);
+          $ch = curl_init('https://app.multitexter.com/v2/app/sms');
+          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data_string)));
+          $result = curl_exec($ch);
+          $res_array = json_decode($result);
+          print_r($res_array);
+
+          ///////////////////////////////////////////////////////////////
+          // Redirect to success page
           $redirect = URLROOT . '/users/register/success';
           echo "<p class='alert alert-success msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> Application submitted successfully
+            <i class='fa fa-check-circle'></i>  Application submitted successfully
           </p><meta http-equiv='refresh' content='4; $redirect'>
         ";
         } else {

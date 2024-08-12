@@ -15,15 +15,15 @@
           </div>
           <div class="form-group mb-2">
             <label>Others Name</label>
-            <input type="text" name="othername" class="form-control form-control-lg">
+            <input type="text" name="othername" required class="form-control form-control-lg">
           </div>
           <div class="form-group mb-2">
             <label>Email Address</label>
-            <input type="email" name="email" class="form-control form-control-lg">
+            <input type="email" name="email" required data-parsley-type="email" data-parsley-trigger="keyup" class="form-control form-control-lg">
           </div>
           <div class="form-group mb-3">
             <label>Whatsapp number</label>
-            <input type="number" name="mobile" class="form-control form-control-lg">
+            <input type="number" name="mobile" required required data-parsley-type='number' maxlength="11" data-parsley-length="[11, 11]" data-parsley-trigger="keyup" pattern="\d{11}" class=" form-control form-control-lg">
           </div>
           <div class="form-group mb-4">
             <label>Which course are you interested in?</label>
