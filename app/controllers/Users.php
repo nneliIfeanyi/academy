@@ -3,10 +3,12 @@ class Users extends Controller
 {
   public $userModel;
   private $uiModel;
+  private $smsModel;
   public function __construct()
   {
     $this->userModel = $this->model('User');
     $this->uiModel = $this->model('Ui');
+    $this->smsModel = $this->model('Ebulksms');
   }
 
   public function index()
@@ -45,6 +47,10 @@ class Users extends Controller
           $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
           if ($this->userModel->register($data)) {
+            $_SESSION['name'] = $data['name'];
+            $_SESSION['email'] = $data['email'];
+            $_SESSION['phone'] = $data['mobile'];
+            $_SESSION['course'] = $data['course'];
             // Redirect to step two
             $redirect = URLROOT . '/users/register/2';
             // flash('msg', 'Your application is recieved, proceed to step 2');
@@ -81,6 +87,7 @@ class Users extends Controller
           $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
           if ($this->userModel->register($data)) {
+            $_SESSION['name'] = $data['name'];
             $_SESSION['email'] = $data['email'];
             $_SESSION['phone'] = $data['mobile'];
             $_SESSION['course'] = $data['course'];
@@ -111,7 +118,7 @@ class Users extends Controller
           $phone_number = ltrim($_SESSION['phone'], '\0');
           $email = "stanvicbest@gmail.com";
           $password = "824NXJ46mYhmSY$";
-          $message = "Congratulations you have successfully enrolled for " . $_SESSION['course'] . "with STANVIC CODING ACADEMY. Kindly login to your account with your email and password to make payment.";
+          $message = "Congratulations you have successfully enrolled for " . $_SESSION['course'] . " with STANVIC CODING ACADEMY. Kindly login to your account with your email and password to make payment.";
           $sender_name = "Stanvic";
           $recipients = '234' . $phone_number;
 
@@ -126,14 +133,22 @@ class Users extends Controller
           $result = curl_exec($ch);
           $res_array = json_decode($result);
           print_r($res_array);
-
+          /////////////////////////////
+          // Ebulk SMS
+          $ebulkmessage = "Someone just registered by name:" . $_SESSION['name'] . ", phone:" . $_SESSION['phone'] . ", course enrolled:" . $_SESSION['course'];
+          $ebulkrecipient = "2348122321931";
+          $this->smsModel->sendSms($ebulkmessage, $ebulkrecipient);
           ///////////////////////////////////////////////////////////////
           // Redirect to success page
           $redirect = URLROOT . '/users/register/success';
           echo "<p class='alert alert-success msg-flash fade show' role='alert'>
             <i class='fa fa-check-circle'></i>  Application submitted successfully
-          </p><meta http-equiv='refresh' content='4; $redirect'>
+          </p><meta http-equiv='refresh' content='0.9; $redirect'>
         ";
+          unset($_SESSION['name']);
+          unset($_SESSION['email']);
+          unset($_SESSION['phone']);
+          unset($_SESSION['course']);
         } else {
           die('Something went wrong');
         }

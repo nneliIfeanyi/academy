@@ -78,7 +78,7 @@
           <p style="font-size: 15;"><strong>Acknowledgement:</strong>The application you are submitting is for addmissionn to a training course it is not an application for employement.</p>
           <input type="checkbox" name="acknowledge" required>&nbsp; I Understand.
           <div class="d-grid mt-4">
-            <input type="submit" class="btn btn-primary" value="Continue">
+            <input type="submit" class="btn btn-primary" id="submit" value="Continue">
           </div>
         </form>
       </div>
