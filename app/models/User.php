@@ -66,6 +66,24 @@ class User
       return false;
     }
   }
+
+  // Find USer BY Email2
+  public function findUserByEmail2($email)
+  {
+    $this->db->query("SELECT * FROM users WHERE email = :email");
+    $this->db->bind(':email', $email);
+
+    $row = $this->db->single();
+
+    //Check Rows
+    if ($this->db->rowCount() > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  /////////////////////////////////////////
+  //////////////////////////////////
   public function findCreatorByEmail($email)
   {
     $this->db->query("SELECT * FROM creators WHERE email = :email");

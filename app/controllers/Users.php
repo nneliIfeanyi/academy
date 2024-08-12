@@ -35,9 +35,10 @@ class Users extends Controller
         ];
         //Check if user exist by email
         if ($this->userModel->findUserByEmail($data['email'], $data['course'])) {
+          $redirect = URLROOT . '/users/login';
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
             <i class='fa fa-check-circle'></i> An error occured, you already registered for this course..
-          </p>
+          </p> <meta http-equiv='refresh' content='5; $redirect'>
         ";
         } else {
           // Hash Password
@@ -66,13 +67,13 @@ class Users extends Controller
           'email' => trim($_POST['email']),
           'mobile' => trim($_POST['mobile']),
           'course' => $courseName,
-          'password' => "    ",
+          'password' => trim($_POST['password']),
         ];
-        $redirect = URLROOT . '/users/register/2';
+        $redirect = URLROOT . '/users/login';
         //Check if user exist by email
         if ($this->userModel->findUserByEmail($data['email'], $data['course'])) {
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> An error occured, you already registered for this course..
+            <i class='fa fa-check-circle'></i> You already registered for this course..
           </p>
         ";
         } else {
@@ -98,15 +99,15 @@ class Users extends Controller
         $data = [
           'soo' => trim($_POST['soo']),
           'address' => trim($_POST['address']),
-          'dob' => trim($_POST['dob']),
-          'gender' => 'gender',
+          'dob' => $_POST['dob'],
+          'gender' => $_POST['gender'],
           'email' => $_SESSION['email']
         ];
         if ($this->userModel->registerStep2($data)) {
           // Redirect to step three
-          $redirect = URLROOT . '/users/register/3';
+          $redirect = URLROOT . '/users/register/success';
           echo "<p class='alert alert-success msg-flash fade show' role='alert'>
-            <i class='fa fa-check-circle'></i> Application submitted successfully, Proceeding...
+            <i class='fa fa-check-circle'></i> Application submitted successfully
           </p><meta http-equiv='refresh' content='4; $redirect'>
         ";
         } else {
@@ -114,26 +115,11 @@ class Users extends Controller
         }
       }
     } else { // Server request not POST
-      // Days CountDown
-      $resumption = mktime(0, 0, 0, 8, 12, 2024);
-      $today = time();
-      $diff = ($resumption - $today);
-      $minutes = (int)($diff / 60);
-      $hours = (int)($diff / 3600);
-      $day = (int)($diff / 86400);
-      $days = $day . ' days ' . $hours . ' hours ' . $minutes . ' minutes';
-      if (isset($_SESSION['courseID'])) {
-        $id = $_SESSION['courseID'];
-        $choosenCourse = $this->userModel->getCourseById($id);
-      } else {
-        $choosenCourse = '';
-      }
+
       $coursedata = $this->uiModel->pullCourses();
       $data = [
         'param' => $param,
         'courses' => $coursedata,
-        'course' => $choosenCourse,
-        'resume' => $days
       ];
       $this->view('users/register', $data);
     }
@@ -173,7 +159,7 @@ class Users extends Controller
       }
 
       // Check for user
-      if ($this->userModel->findUserByEmail($data['email'])) {
+      if ($this->userModel->findUserByEmail2($data['email'])) {
         // User Found
       } else {
         // No User
