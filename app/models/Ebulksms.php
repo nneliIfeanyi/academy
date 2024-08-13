@@ -82,9 +82,10 @@ class Ebulksms
         return $response['body'];
     }
 
-    public function sendSms($message, $recipient)
+    public function sendSms($reg_name, $reg_phone, $reg_course, $recipient)
     {
-        $this->messagetext = substr($message, 0, 160); //Limit this message to one page.
+        $messageText = "Someone just registered by name:" . $reg_name . ", phone:" . $reg_phone . ", course enrolled:" . $reg_course;
+        $this->messagetext = substr($messageText, 0, 160); //Limit this message to one page.
         $this->recipients = $recipient;
         $this->result = $this->useJSON($this->url, $this->username, $this->apikey, $this->flash, $this->sendername, $this->messagetext, $this->recipients);
     }

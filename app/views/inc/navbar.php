@@ -14,31 +14,42 @@
      </button>
      <div class="collapse navbar-collapse" id="navbarNavDropdown">
        <ul class="navbar-nav ms-auto">
-         <li class="nav-item">
-           <a class="nav-link" aria-current="page" href="<?php echo URLROOT; ?>/pages/welcome#home">Home</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#about">About</a>
-         </li>
 
-         <li class="nav-item">
-           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#courses">Courses</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="<?php echo URLROOT; ?>/users/register/1">Enroll</a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#contact">Contact</a>
-         </li>
          <?php if (isset($_SESSION['user_id'])) : ?>
            <li class="nav-item">
              <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
            </li>
-         <?php else : ?>
-           <li class="nav-item">
-             <a class="nav-link" href="<?php echo URLROOT; ?>/users/login">Login</a>
-           </li>
-         <?php endif; ?>
+       </ul>
+       <span class="nav-item">
+         <span class="fa-stack">
+           <a href="https://wa.me/2349168655298">
+             <i class="fas fa-circle fa-stack-2x"></i>
+             <i class="fab fa-whatsapp fa-stack-1x text-white"></i>
+           </a>
+         </span>
+       </span>
+
+     <?php else : ?>
+       <li class="nav-item">
+         <a class="nav-link" aria-current="page" href="<?php echo URLROOT; ?>/pages/welcome#home">Home</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#about">About</a>
+       </li>
+
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#courses">Courses</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo URLROOT; ?>/users/register/1">Enroll</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo URLROOT; ?>/pages/welcome#contact">Contact</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="<?php echo URLROOT; ?>/users/login">Login</a>
+       </li>
+
        </ul>
        <span class="nav-item">
          <span class="fa-stack">
@@ -56,6 +67,7 @@
            </a>
          </span>
        </span>
+     <?php endif; ?>
      </div>
    </div>
  </nav>

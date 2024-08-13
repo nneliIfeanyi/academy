@@ -13,9 +13,11 @@ class Users extends Controller
 
   public function index()
   {
-    redirect('welcome');
+    redirect('pages/welcome');
   }
 
+  // Registeration Function Begins
+  /////////////////////////////////////////
   public function register($param)
   {
     // Check if POST
@@ -113,32 +115,14 @@ class Users extends Controller
           'email' => $_SESSION['email']
         ];
         if ($this->userModel->registerStep2($data)) {
-          //Send sms
-          /////////////////////////////////////////////////////////////
-          $phone_number = ltrim($_SESSION['phone'], '\0');
-          $email = "stanvicbest@gmail.com";
-          $password = "824NXJ46mYhmSY$";
-          $message = "Congratulations you have successfully enrolled for " . $_SESSION['course'] . " with STANVIC CODING ACADEMY. Kindly login to your account with your email and password to make payment.";
-          $sender_name = "Stanvic";
-          $recipients = '234' . $phone_number;
-
-          $forcednd = "1";
-          $data = array("email" => $email, "password" => $password, "message" => $message, "sender_name" => $sender_name, "recipients" => $recipients, "forcednd" => $forcednd);
-          $data_string = json_encode($data);
-          $ch = curl_init('https://app.multitexter.com/v2/app/sms');
-          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data_string)));
-          $result = curl_exec($ch);
-          $res_array = json_decode($result);
-          print_r($res_array);
-          /////////////////////////////
+          //Multitexter sms
+          fast_send_sms($_SESSION['phone'], $_SESSION['course']);
           // Ebulk SMS
-          $ebulkmessage = "Someone just registered by name:" . $_SESSION['name'] . ", phone:" . $_SESSION['phone'] . ", course enrolled:" . $_SESSION['course'];
-          $ebulkrecipient = "2348122321931";
-          $this->smsModel->sendSms($ebulkmessage, $ebulkrecipient);
-          ///////////////////////////////////////////////////////////////
+          if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
+            $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2348122321931");
+          } elseif ($_SESSION['course'] == 'Introduction to Machine learning with python') {
+            $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2349079634127");
+          }
           // Redirect to success page
           $redirect = URLROOT . '/users/register/success';
           echo "<p class='alert alert-success msg-flash fade show' role='alert'>
@@ -172,7 +156,7 @@ class Users extends Controller
   {
     // Check if logged in
     if ($this->isLoggedIn()) {
-      redirect('posts');
+      redirect('pages/welcome');
     }
 
     // Check if POST
@@ -192,16 +176,9 @@ class Users extends Controller
         $data['email_err'] = 'Please enter email.';
       }
 
-      // Check for name
-      if (empty($data['name'])) {
-        $data['name_err'] = 'Please enter name.';
-      }
-
       // Check for user
-      if ($this->userModel->findUserByEmail2($data['email'])) {
-        // User Found
-      } else {
-        // No User
+      if (!$this->userModel->findUserByEmail2($data['email'])) {
+        // User not found
         $data['email_err'] = 'This email is not registered.';
       }
 
@@ -239,21 +216,71 @@ class Users extends Controller
     }
   }
 
+
+
+  // Cart Page
+  public function cart()
+  {
+    if (!$this->isLoggedIn()) {
+      redirect('users/login');
+    }
+    $student = $this->userModel->getUserById($_SESSION['user_id']);
+    $course = $this->userModel->getCourseByTitle($student->course);
+    $data = [
+      'name' => $student,
+      'course' => $course
+    ];
+    $this->view('users/cart', $data);
+  }
+  // Payment Page
+  public function pay($param)
+  {
+    if (!$this->isLoggedIn()) {
+      redirect('users/login');
+    }
+    $student = $this->userModel->getUserById($_SESSION['user_id']);
+    $course = $this->userModel->getCourseByTitle($student->course);
+    $code = '';
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      $code = trim($_POST['code']);
+
+      if (!$this->userModel->checkPromoCode($code)) {
+        echo "<p class='alert alert-success msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Successfull..
+          </p><meta http-equiv='refresh' content='2; $course->paylink'>
+        ";
+      } else {
+        echo "<p class='alert alert-success msg-flash fade show' role='alert'>
+            <i class='fa fa-check-circle'></i> Promo code is invalid or has expired.
+          </p>
+        ";
+      }
+    } else {
+
+      $data = [
+        'name' => $student,
+        'course' => $course
+      ];
+      $this->view('users/pay', $data);
+    }
+  }
+
+
+
+
+
   // Create Session With User Info
   public function createUserSession($user)
   {
     $_SESSION['user_id'] = $user->id;
-    $_SESSION['user_email'] = $user->email;
-    $_SESSION['user_name'] = $user->name;
-    redirect('posts');
+    redirect('users/cart');
   }
 
   // Logout & Destroy Session
   public function logout()
   {
     unset($_SESSION['user_id']);
-    unset($_SESSION['user_email']);
-    unset($_SESSION['user_name']);
     session_destroy();
     redirect('users/login');
   }

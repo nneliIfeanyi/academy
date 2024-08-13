@@ -108,6 +108,30 @@ class User
 
     return $row;
   }
+  // Get Course By Course nme
+  public function getCourseByTitle($title)
+  {
+    $this->db->query("SELECT * FROM courses WHERE title = :title");
+    $this->db->bind(':title', $title);
+
+    $row = $this->db->single();
+
+    return $row;
+  }
+
+  public function checkPromoCode($code)
+  {
+    $this->db->query("SELECT * FROM codes WHERE code = :code");
+    $this->db->bind(':code', $code);
+
+    $this->db->single();
+    //Check Rows
+    if ($this->db->rowCount() > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // Login / Authenticate User
   public function login($email, $password)

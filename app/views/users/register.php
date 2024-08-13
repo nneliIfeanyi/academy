@@ -90,7 +90,7 @@
       <div class="card-body text-center">
         <h2 class="text-center text-primary">Your Application is Completed Successfully</h2>
         <hr />
-        <p class="my-5"><i class="fa fa-circle-check fa-5x"></i></p>
+        <p class="my-5"><i class="fa fa-check fa-5x"></i></p>
         <p class="lead">We are glad you made it through this application process, other informations or details will be communicated to you via text message, phone call or the email you provided.<br><strong class="fw-bold">Stay Strong and Stay Safe.</strong></p>
         <p style="font-size: small;">For more inquiries contact us on <a class="mt-4" style="text-decoration: none;" href="https://wa.me/2349168655298"><i class="fab fa-whatsapp"></i> 09168655298</a></p>
         <a href="<?php echo URLROOT; ?>/users/login" class="btn btn-outline-dark">Proceed to login</a>
