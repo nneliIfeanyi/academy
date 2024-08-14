@@ -115,14 +115,15 @@ class Users extends Controller
           'email' => $_SESSION['email']
         ];
         if ($this->userModel->registerStep2($data)) {
+          sendMail();
           //Multitexter sms
-          fast_send_sms($_SESSION['phone'], $_SESSION['course']);
-          // Ebulk SMS
-          if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
-            $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2348122321931");
-          } elseif ($_SESSION['course'] == 'Introduction to Machine learning with python') {
-            $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2349079634127");
-          }
+          // fast_send_sms($_SESSION['phone'], $_SESSION['course']);
+          // // Ebulk SMS
+          // if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
+          //   $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2348122321931");
+          // } elseif ($_SESSION['course'] == 'Introduction to Machine learning with python') {
+          //   $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2349079634127");
+          // }
           // Redirect to success page
           $redirect = URLROOT . '/users/register/success';
           echo "<p class='alert alert-success msg-flash fade show' role='alert'>
@@ -232,6 +233,7 @@ class Users extends Controller
     ];
     $this->view('users/cart', $data);
   }
+  /////////////////////////////////////
   // Payment Page
   public function pay($param)
   {

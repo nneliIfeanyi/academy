@@ -32,14 +32,14 @@ class Pages extends Controller
     $this->view('pages/welcome', $data);
   }
 
-  // public function about()
-  // {
-  //   //Set Data
-  //   $data = [
-  //     'version' => '1.0.0'
-  //   ];
+  public function about()
+  {
+    //Set Data
+    $data = [
+      'version' => '1.0.0'
+    ];
 
-  //   // Load about view
-  //   $this->view('pages/about', $data);
-  // }
+    // Load about view
+    $this->view('pages/about', $data);
+  }
 }
