@@ -76,8 +76,9 @@ class Users extends Controller
           'mobile' => trim($_POST['mobile']),
           'course' => $courseName,
           'password' => trim($_POST['password']),
+          'referal' => ''
         ];
-        $redirect = URLROOT . '/users/login';
+        //$redirect = URLROOT . '/users/login';
         //Check if user exist by email
         if ($this->userModel->findUserByEmail($data['email'], $data['course'])) {
           echo "<p class='alert alert-danger msg-flash fade show' role='alert'>
@@ -118,11 +119,13 @@ class Users extends Controller
 
           //Multitexter sms
           // fast_send_sms($_SESSION['phone'], $_SESSION['course']);
-          // Ebulk SMS Whatsapp
+
           if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
+            // Send Email To Student
             sendMail($_SESSION['email'], $_SESSION['course']);
-            //Multitexter sms
+            //Multitexter sms to student
             fast_send_sms($_SESSION['phone'], $_SESSION['course']);
+            // Send Email To Admin
             sendMailToAdmin('stanvicbest@gmail.com', $_SESSION['name'], $_SESSION['phone'], $_SESSION['course']);
           } elseif ($_SESSION['course'] == 'Introduction to Machine learning with python') {
             $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2349079634127");
