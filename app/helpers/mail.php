@@ -32,7 +32,7 @@ function sendMail($reciever, $course)
             "<div style='text-align:center;background-color:antiquewhite;padding-bottom:20px;'>
             <h1 style='color:antiquewhite;padding: 28px;border-bottom:2px solid #ffc107;background-color:black;border-radius:6px;'>Stanvic Coding Academy</h1>
         
-            <p style='font-size:21px;'>
+            <p style='font-size:19px;padding:7px;>
                 Congratulations you have successfully enrolled for $course with <strong>Stanvic Coding Academy</strong>.
                 
             </p>

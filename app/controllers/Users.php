@@ -115,12 +115,14 @@ class Users extends Controller
           'email' => $_SESSION['email']
         ];
         if ($this->userModel->registerStep2($data)) {
-          sendMail($_SESSION['email'], $_SESSION['course']);
+
           //Multitexter sms
           // fast_send_sms($_SESSION['phone'], $_SESSION['course']);
           // Ebulk SMS Whatsapp
           if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
-            // $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2348122321931");
+            sendMail($_SESSION['email'], $_SESSION['course']);
+            //Multitexter sms
+            fast_send_sms($_SESSION['phone'], $_SESSION['course']);
             sendMailToAdmin('stanvicbest@gmail.com', $_SESSION['name'], $_SESSION['phone'], $_SESSION['course']);
           } elseif ($_SESSION['course'] == 'Introduction to Machine learning with python') {
             $this->smsModel->sendSms($_SESSION['name'], $_SESSION['phone'], $_SESSION['course'], "2349079634127");

@@ -12,7 +12,7 @@ function fast_send_sms($phone_number, $course)
   $phone_number = ltrim($phone_number, '\0');
   $email = "stanvicbest@gmail.com";
   $password = "824NXJ46mYhmSY$";
-  $message = "Congratulations you have successfully enrolled for " . $course . " with STANVIC CODING ACADEMY. Kindly login to your account with your email and password to make payment. Best regards!";
+  $message = "Congratulations you have successfully enrolled for " . $course . " with STANVIC CODING ACADEMY. Kindly note that you are expected to report at the venue on Monday 19th Aug, by 10AM. Best regards!";
   $sender_name = "Stanvic";
   $recipients = '234' . $phone_number;
 
