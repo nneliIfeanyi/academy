@@ -17,13 +17,14 @@
           <input type="password" name="password" class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
           <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
         </div>
-        <div class="form-row mt-4">
+        <div class="row mt-4">
           <div class="col">
             <input type="submit" class="btn btn-primary" value="Login">
           </div>
           <div class="col">
             <a href="<?php echo URLROOT; ?>/users/register/1" class="btn btn-light btn-block">No account? Register</a>
           </div>
+          <a href="" class="mt-3">I forgot my password</a>
         </div>
       </form>
     </div>

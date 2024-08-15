@@ -1,44 +1,88 @@
 <?php
 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-// require APPROOT . '/views/PHPMailer/src/Exception.php';
-// require APPROOT . '/views/PHPMailer/src/PHPMailer.php';
-// require APPROOT . '/views/PHPMailer/src/SMTP.php';
+require APPROOT . '/views/PHPMailer/src/Exception.php';
+require APPROOT . '/views/PHPMailer/src/PHPMailer.php';
+require APPROOT . '/views/PHPMailer/src/SMTP.php';
 
-// function sendMail()
-// {
-//     $mail = new PHPMailer(true);
+function sendMail($reciever, $course)
+{
+    $mail = new PHPMailer(true);
 
-//     try {
-//         $mail->SMTPDebug = 2;
-//         $mail->SMTPSecure = 'tls';
-//         $mail->isSMTP();
-//         $mail->Host = 'sandbox.smtp.mailtrap.io';
-//         $mail->SMTPAuth = true;
-//         $mail->Port = 2525;
-//         $mail->Username = 'f91ace13a40c93';
-//         $mail->Password = 'f238c3ca91a9a2';
+    try {
+        $mail->SMTPDebug = 2;
+        $mail->SMTPSecure = 'tls';
+        $mail->isSMTP();
+        $mail->Host = 'live.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 587;
+        $mail->Username = 'api';
+        $mail->Password = '0dcbca9704cf4ae1be561df980807ca3';
 
 
-//         $mail->setFrom('coding@stanvic.com.ng', 'Stanvic Coding Academy');
-//         $mail->addAddress('nnelivictor1@gmail.com');
-//         //$mail->addAddress('receiver2@gfg.com', 'Name');
+        $mail->setFrom('coding@stanvic.com.ng', 'Stanvic Coding Academy');
+        $mail->addAddress($reciever);
+        //$mail->addAddress('receiver2@gfg.com', 'Name');
 
-//         $mail->isHTML(true);
-//         $mail->Subject = 'Testing out on mailtrap';
-//         $mail->Body =
-//             "<table style='text-align:center;width:100%'>
-//             <h1>Registeration is successfull</h1>
-//             <p>You have successfully registered.</p>
-//             <a href='stanvic.com.ng'>click here to login</a>
+        $mail->isHTML(true);
+        $mail->Subject = 'Registeration is successfull';
+        $mail->Body =
+            "<div style='text-align:center;background-color:antiquewhite;padding-bottom:20px;'>
+            <h1 style='color:antiquewhite;padding: 28px;border-bottom:2px solid #ffc107;background-color:black;border-radius:6px;'>Stanvic Coding Academy</h1>
+        
+            <p style='font-size:21px;'>
+                Congratulations you have successfully enrolled for $course with <strong>Stanvic Coding Academy</strong>.
+                
+            </p>
+            <p style=''><a style='text-decoration:none;padding: 7px 12px;;background-color:#ffc107;colorblack;border-radius:10px;' href='https://academy.stanvic.com.ng/users/login'>Verify your email</a></p>
             
-//             </table>";
-//         //$mail->AltBody = 'Body in plain text for non-HTML mail clients';
-//         $mail->send();
-//         echo "Mail has been sent successfully!";
-//     } catch (Exception $e) {
-//         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-//     }
-// }
+            </div>";
+        //$mail->AltBody = 'Body in plain text for non-HTML mail clients';
+        $mail->send();
+        echo "Mail has been sent successfully!";
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+
+
+function sendMailToAdmin($reciever, $name, $phone, $course)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->SMTPDebug = 2;
+        $mail->SMTPSecure = 'tls';
+        $mail->isSMTP();
+        $mail->Host = 'live.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 587;
+        $mail->Username = 'api';
+        $mail->Password = '0dcbca9704cf4ae1be561df980807ca3';
+
+
+        $mail->setFrom('coding@stanvic.com.ng', 'Stanvic Coding Academy');
+        $mail->addAddress($reciever);
+        //$mail->addAddress('receiver2@gfg.com', 'Name');
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Course Registration';
+        $mail->Body =
+            "<div style='text-align:center;background-color:antiquewhite;padding-bottom:20px;'>
+            <h1 style='color:antiquewhite;padding: 28px;border-bottom:2px solid #ffc107;background-color:black;border-radius:6px;'>Stanvic Coding Academy</h1>
+        
+            <p style='font-size:21px;'>
+                Someone just registered by name:$name, phone: $phone, course enrolled: $course.
+                
+            </p>
+            
+            </div>";
+        //$mail->AltBody = 'Body in plain text for non-HTML mail clients';
+        $mail->send();
+        echo "Mail has been sent successfully!";
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
