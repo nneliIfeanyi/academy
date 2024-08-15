@@ -12,8 +12,8 @@ class User
   public function register($data)
   {
     // Prepare Query
-    $this->db->query('INSERT INTO users (name, email, mobile, course, password) 
-      VALUES (:name, :email, :mobile, :course, :password)');
+    $this->db->query('INSERT INTO users (name, email, mobile, course, password, referal) 
+      VALUES (:name, :email, :mobile, :course, :password, :referal)');
 
     // Bind Values
     $this->db->bind(':name', $data['name']);
@@ -21,6 +21,7 @@ class User
     $this->db->bind(':mobile', $data['mobile']);
     $this->db->bind(':course', $data['course']);
     $this->db->bind(':password', $data['password']);
+    $this->db->bind(':referal', $data['referal']);
 
     //Execute
     if ($this->db->execute()) {

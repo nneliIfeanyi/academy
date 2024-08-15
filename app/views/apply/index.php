@@ -54,7 +54,7 @@
         event.preventDefault();
         if ($('#enroll').parsley().isValid()) {
             $.ajax({
-                url: "<?php echo URLROOT; ?>/users/register/1",
+                url: "<?php echo URLROOT; ?>/apply/index/<?php echo $data['param']; ?>",
                 method: "POST",
                 data: new FormData(this),
                 contentType: false,
