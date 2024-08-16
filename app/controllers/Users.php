@@ -123,7 +123,7 @@ class Users extends Controller
 
           if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
             //Multitexter sms to student
-            fast_send_sms($_SESSION['phone'], $_SESSION['course']);
+            //fast_send_sms($_SESSION['phone'], $_SESSION['course']);
 
             // Send Email To Student
             sendMail($_SESSION['email'], $_SESSION['course']);
