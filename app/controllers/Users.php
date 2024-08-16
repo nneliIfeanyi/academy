@@ -121,10 +121,12 @@ class Users extends Controller
           // fast_send_sms($_SESSION['phone'], $_SESSION['course']);
 
           if ($_SESSION['course'] == 'Mobile App Development' || $_SESSION['course'] == 'UX Design' || $_SESSION['course'] == 'Web development') {
-            // Send Email To Student
-            sendMail($_SESSION['email'], $_SESSION['course']);
             //Multitexter sms to student
             fast_send_sms($_SESSION['phone'], $_SESSION['course']);
+
+            // Send Email To Student
+            sendMail($_SESSION['email'], $_SESSION['course']);
+
             // Send Email To Admin
             sendMailToAdmin('stanvicbest@gmail.com', $_SESSION['name'], $_SESSION['phone'], $_SESSION['course']);
           } elseif ($_SESSION['course'] == 'Introduction to Machine learning with python') {
