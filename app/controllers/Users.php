@@ -36,6 +36,7 @@ class Users extends Controller
           'mobile' => trim($_POST['mobile']),
           'course' => $courseName,
           'password' => "    ",
+          'referal' => ''
         ];
         //Check if user exist by email
         if ($this->userModel->findUserByEmail($data['email'], $data['course'])) {
